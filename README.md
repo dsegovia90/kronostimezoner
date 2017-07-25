@@ -1,2 +1,13 @@
 # slack-timezoner
+## Description
 This app or bot, will permit a remote slack group arrange a meeting at a certain local time, and communicate the local time of other participants to avoid confusion and daylight saving issues. 
+
+## Technical
+The app is built with Node, Express.js, and MongoDB. It should interact with the slack API.
+### Slack API Permisions
+(fill here later the permitions we're using)
+
+## Goals
+### 1. The App should communicate with a simple hello world message to slack
+### 2. The App should have a slash command that returns a dropdown so you can set up your city (this could be changed later)
+### 3. The App should have another slash command to set up a meeting. 
