@@ -9,5 +9,8 @@ The app is built with Node, Express.js, and MongoDB. It should interact with the
 
 ## Goals
 ### 1. The App should communicate with a simple hello world message to slack
+Setup the express app with [express generator](https://expressjs.com/en/starter/generator.html), and have slash command communicate with a POST request that returns a hello world json to slack. 
 ### 2. The App should have a slash command that returns a dropdown so you can set up your city (this could be changed later)
+Use the [slack npm module](https://www.npmjs.com/package/slack) to simplify the workload and the interactions. 
 ### 3. The App should have another slash command to set up a meeting. 
+Again we can use the slack npm module from the step above. 
