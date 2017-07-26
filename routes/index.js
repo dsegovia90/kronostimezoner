@@ -16,6 +16,7 @@ let sendMessageToSlackResponseURL = (responseURL, JSONmessage)=>{
 					console.log(error)
 			}
 	})
+
 }
 
 /* GET home page. */
@@ -29,6 +30,7 @@ router.post('/helloworld',(req, res, next) => {
 		text : 'Hello World'
 	}
 	sendMessageToSlackResponseURL(responseURL,botPayload)
+	res.end()
 })
 
 module.exports = router;
