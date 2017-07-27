@@ -1,15 +1,14 @@
 const express = require('express');
-const request = require('request')
 const router = express.Router();
 const attachments = require('../lib/slack/attachments')
 const cities = require('../lib/cities')
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.render('index', { title: 'Slack-Timezoner' });
 });
 
-router.post('/helloworld',(req, res, next) => {
+router.post('/helloworld',(req, res) => {
 	res.json({"text":"Hello World"})
 	res.end()
 })
