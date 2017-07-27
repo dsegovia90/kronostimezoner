@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
 
 router.post('/helloworld',(req, res) => {
 	res.json({"text":"Hello World"})
-	res.end()
 })
 
 router.post('/city',(req, res) => {
@@ -39,7 +38,6 @@ router.post('/city',(req, res) => {
 						  }
 						]
 	})
-	res.end()
 })
 
 router.post('/showcity', (req, res) => {
