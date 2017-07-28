@@ -42,20 +42,20 @@ router.post('/city', (req, res) => {
     "attachments": [
       {
         "text": "What city are you from:",
-                "mrkdwn": true,
-                "fallback": "You are unable to choose a city",
-                "callback_id": "city",
-                "attachment_type": "default",
-                "actions": [
-                   {
-                      "name": 'city',
-                      "text": 'City',
-                      "type": 'select',
-                      "value": 'city',
-                      "style": 'primary',
-                      "options": attachments.loopCities(cities)
-                    }
-                ]
+        "mrkdwn": true,
+        "fallback": "You are unable to choose a city",
+        "callback_id": "city",
+        "attachment_type": "default",
+        "actions": [
+          {
+            "name": 'city',
+            "text": 'City',
+            "type": 'select',
+            "value": 'city',
+            "style": 'primary',
+            "options": attachments.loopCities(cities)
+          }
+        ]
       }
     ]
   })
