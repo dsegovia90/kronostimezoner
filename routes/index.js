@@ -29,11 +29,11 @@ router.post('/helloworld',(req, res) => {
 router.post('/city',(req, res) => {
 	console.log("OPENING PAY: " + JSON.stringify(req.body))
 	res.json({
-						"Content-type": "application/json",
-						"response_type": 'ephemeral',
-						"text": `Hi ${req.body.user_name}!`,
-						"attachments": [
-							{
+		"Content-type": "application/json",
+		"response_type": 'ephemeral',
+		"text": `Hi ${req.body.user_name}!`,
+		"attachments": [
+			{
                "text":"What city are you from:",
                "mrkdwn": true,
                "fallback": "You are unable to choose a city",
@@ -49,15 +49,15 @@ router.post('/city',(req, res) => {
                   "options": attachments.loopCities(cities)
                  }
                ]
-						  }
-						]
+			  }
+			]
 	})
 })
 
 router.post('/showcity', (req, res) => {
-	let payload = JSON.parse(req.body.payload)
-	console.log("PARSE: " + JSON.stringify(JSON.parse(req.body.payload)))
-	res.json({"text":`${payload.user.name} chose *${payload.actions[0].selected_options[0].value}*`})
+  let payload = JSON.parse(req.body.payload)
+  console.log("PARSE: " + JSON.stringify(JSON.parse(req.body.payload)))
+  res.json({"text":`${payload.user.name} chose *${payload.actions[0].selected_options[0].value}*`})
 })
 
 module.exports = router;
