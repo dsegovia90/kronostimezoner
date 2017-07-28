@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const attachments = require('../lib/slack/attachments')
+const User = require('../models/Users')
 const cities = require('../lib/cities')
 
 /* GET home page. */
@@ -9,7 +10,20 @@ router.get('/', (req, res) => {
 });
 
 router.post('/helloworld',(req, res) => {
-	res.json({"text":"Hello World"})
+	let newUser = new User()
+	newUser.token = req.body.token
+	newUser.teamId = req.body.team_id
+	newUser.teamDomain = req.body.team_domain
+	newUser.userID = req.body.user_id
+	newUser.userName = req.body.user_name
+
+	return newUser.save()
+	.then(() =>{
+		res.json({"text":`Hello *@${req.body.user_name}*!\nYou are now stored in the database.`})
+	})
+	.catch((err)=>{
+		console.log(err)
+	})
 })
 
 router.post('/city',(req, res) => {
