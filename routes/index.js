@@ -10,13 +10,13 @@ router.get('/', (req, res) => {
 });
 
 router.post('/helloworld',(req, res) => {
-  User.findOne({userID:req.body.user_id, teamID:req.body.team_id})
+  User.findOne({userId:req.body.user_id, teamId:req.body.team_id})
   .then((user)=>{
     if(user){
       user.token = req.body.token
     	user.teamId = req.body.team_id
 	    user.teamDomain = req.body.team_domain
-	    user.userID = req.body.user_id
+	    user.userId = req.body.user_id
       user.userName = req.body.user_name
 
       user.save((err) => {
@@ -30,7 +30,7 @@ router.post('/helloworld',(req, res) => {
       newUser.token = req.body.token
       newUser.teamId = req.body.team_id
       newUser.teamDomain = req.body.team_domain
-      newUser.userID = req.body.user_id
+      newUser.userId = req.body.user_id
       newUser.userName = req.body.user_name
 
       newUser.save()

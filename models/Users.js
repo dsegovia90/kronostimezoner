@@ -3,9 +3,9 @@ const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
   token:{type: String},
-  teamID: {type: String},
+  teamId: {type: String},
   teamDomain:{type:String},
-  userID: {type: String},
+  userId: {type: String},
   userName:{type:String}
 })
 
