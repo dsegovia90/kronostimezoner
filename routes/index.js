@@ -33,24 +33,24 @@ router.post('/city',(req, res) => {
 		"response_type": 'ephemeral',
 		"text": `Hi ${req.body.user_name}!`,
 		"attachments": [
-			{
-               "text":"What city are you from:",
-               "mrkdwn": true,
-               "fallback": "You are unable to choose a city",
-               "callback_id": "city",
-               "attachment_type": "default",
-               "actions":[
-                 {
-                  "name": 'city',
-                  "text": 'City',
-                  "type": 'select',
-                  "value": 'city',
-                  "style": 'primary',
-                  "options": attachments.loopCities(cities)
-                 }
-               ]
-			  }
-			]
+      {
+        "text":"What city are you from:",
+        "mrkdwn": true,
+        "fallback": "You are unable to choose a city",
+        "callback_id": "city",
+        "attachment_type": "default",
+        "actions":[
+         {
+          "name": 'city',
+          "text": 'City',
+          "type": 'select',
+          "value": 'city',
+          "style": 'primary',
+          "options": attachments.loopCities(cities)
+          }
+        ]
+      }
+		]
 	})
 })
 
