@@ -10,17 +10,33 @@ router.get('/', (req, res) => {
 });
 
 router.post('/helloworld',(req, res) => {
-	let newUser = new User()
-	newUser.token = req.body.token
-	newUser.teamId = req.body.team_id
-	newUser.teamDomain = req.body.team_domain
-	newUser.userID = req.body.user_id
-	newUser.userName = req.body.user_name
+  User.findOne({userID:req.body.user_id, teamID:req.body.team_id})
+  .then((user)=>{
+    if(user){
+      user.token = req.body.token
+    	user.teamId = req.body.team_id
+	    user.teamDomain = req.body.team_domain
+	    user.userID = req.body.user_id
+      user.userName = req.body.user_name
 
-	return newUser.save()
-	.then(() =>{
-		res.json({"text":`Hello *@${req.body.user_name}*!\nYou are now stored in the database.`})
-	})
+      user.save((err) => {
+          if(err) {
+            throw err
+          }
+        })
+      res.json({"text":`Welcome back *@${req.body.user_name}*!`})
+    }else{
+      let newUser = new User()
+      newUser.token = req.body.token
+      newUser.teamId = req.body.team_id
+      newUser.teamDomain = req.body.team_domain
+      newUser.userID = req.body.user_id
+      newUser.userName = req.body.user_name
+
+      newUser.save()
+      res.json({"text":`Hello *@${req.body.user_name}*!\nYou are now stored in the database.`})
+    }
+  })
 	.catch((err)=>{
 		console.log(err)
 	})
