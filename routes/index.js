@@ -1,9 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const attachments = require('../lib/slack/attachments')
+const responses = require('../lib/slack/responses')
 const User = require('../models/Users')
 const cities = require('../lib/cities')
+const moment = require('moment')
 const slack = require('slack')
+
+
+function findDates(){
+  
+        let datesArr = []
+        let nextDate
+        let dateObj ={}
+        for(let i = 0; i < 31;i++){
+        console.log("TIME:" + moment().add(i, 'days').format('ll'))
+        nextDate= moment().add(i, 'days').format('ll')
+        dateObj = {"text":nextDate,"value":nextDate}
+        datesArr.push(dateObj)
+        }
+        console.log("DATESARR: " + datesArr)
+        return datesArr
+    }
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -35,27 +52,27 @@ router.post('/helloworld', (req, res) => {
     })
 })
 
-router.post('/city', (req, res) => {
+router.post('/choosedate', (req, res) => {
   console.log("OPENING PAY: " + JSON.stringify(req.body))
   res.json({
     "Content-type": "application/json",
     "response_type": 'ephemeral',
-    "text": `Hi ${req.body.user_name}!`,
+    "text": `Hi @${req.body.user_name}!`,
     "attachments": [
       {
-        "text": "What city are you from:",
+        "text": "What day would you like to choose:",
         "mrkdwn": true,
-        "fallback": "You are unable to choose a city",
-        "callback_id": "city",
+        "fallback": "You are unable to choose a day",
+        "callback_id": "choose_day",
         "attachment_type": "default",
         "actions": [
           {
-            "name": 'city',
-            "text": 'City',
+            "name": 'day',
+            "text": 'Choose Day',
             "type": 'select',
-            "value": 'city',
+            "value": 'day',
             "style": 'primary',
-            "options": attachments.loopCities(cities)
+            "options": responses.chooseDates()
           }
         ]
       }
@@ -63,7 +80,7 @@ router.post('/city', (req, res) => {
   })
 })
 
-router.post('/showcity', (req, res) => {
+router.post('/showdate', (req, res) => {
   let payload = JSON.parse(req.body.payload)
   console.log("PARSE: " + JSON.stringify(JSON.parse(req.body.payload)))
   res.json({ "text": `${payload.user.name} chose *${payload.actions[0].selected_options[0].value}*` })
