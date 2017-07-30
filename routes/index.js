@@ -83,7 +83,7 @@ router.post('/choosedate', (req, res) => {
 router.post('/showdate', (req, res) => {
   let payload = JSON.parse(req.body.payload)
   console.log("PARSE: " + JSON.stringify(JSON.parse(req.body.payload)))
-  res.json({ "text": `${payload.user.name} chose *${payload.actions[0].selected_options[0].value}*` })
+  res.json({ "text": `@${payload.user.name} chose *${payload.actions[0].selected_options[0].value}*` })
 })
 
 router.post('/sendtime',(req,res) => {
