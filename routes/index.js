@@ -111,4 +111,19 @@ router.post('/sendtime', (req, res) => {
   })
 })
 
+router.post('/catchmessages', (req, res) => {
+  console.log(req.body.event)
+  res.send(req.body.challenge)
+
+  if(req.body.event.text === 'respond me app'){
+    let token = process.env.VERIFICATION_TOKEN
+    let channel = req.body.event.channel
+    let text = 'Responding...'
+    slack.chat.postMessage({token, channel, text}, (err, data) => {
+      if(err) console.log(err)
+    })
+  }
+})
+
+
 module.exports = router;
