@@ -7,25 +7,25 @@ const moment = require('moment')
 const slack = require('slack')
 
 
-function findDates(){
-  
-        let datesArr = []
-        let nextDate
-        let dateObj ={}
-        for(let i = 0; i < 31;i++){
-        console.log("TIME:" + moment().add(i, 'days').format('ll'))
-        nextDate= moment().add(i, 'days').format('ll')
-        dateObj = {"text":nextDate,"value":nextDate}
-        datesArr.push(dateObj)
-        }
-        console.log("DATESARR: " + datesArr)
-        return datesArr
-    }
+function findDates() {
+
+  let datesArr = []
+  let nextDate
+  let dateObj = {}
+  for (let i = 0; i < 31; i++) {
+    console.log("TIME:" + moment().add(i, 'days').format('ll'))
+    nextDate = moment().add(i, 'days').format('ll')
+    dateObj = { "text": nextDate, "value": nextDate }
+    datesArr.push(dateObj)
+  }
+  console.log("DATESARR: " + datesArr)
+  return datesArr
+}
 
 /* GET home page. */
 router.get('/', (req, res) => {
   res.render('index', { title: 'Slack-Timezoner' });
-  
+
 });
 
 router.post('/helloworld', (req, res) => {
@@ -86,25 +86,33 @@ router.post('/showdate', (req, res) => {
   res.json({ "text": `@${payload.user.name} chose *${payload.actions[0].selected_options[0].value}*` })
 })
 
-router.post('/sendtime',(req,res) => {
+router.post('/sendtime', (req, res) => {
   res.end();
   let channel = req.body.channel_id
-  let token = 'xoxp-181862360722-182663196534-217571768144-d7ca78b0a397f95d08167b8c06aa65e2'
+  let token = process.env.VERIFICATION_TOKEN
   let unixDate = Math.round(Date.now() / 1000)
   let text = `<!date^${unixDate}^The time and date is {date} at {time}.|Can we meet soon?>`
-  
-  slack.chat.postMessage({token, channel, text}, (err, data) => { 
-    if(err){
-      console.error(err)
-    }
+
+  let postMessagePromise = new Promise((resolve, reject) => {
+    slack.chat.postMessage({ token, channel, text }, (err, data) => {
+      resolve(data);
+      reject(err);
+    })
   })
+
+  postMessagePromise.then((data) => {
+    console.log(data)
+  }).catch((err) => {
+    console.error(err)
+  })
+
 
   // slack.users.list({token}, (err, data) => {
   //   if(err) console.error(err)
   //   // console.log("DATA: " + JSON.stringify(data))
   //   let usersArr = [] 
   //   let users = ''
-    
+
   //   //create array of user id's
   //   data.members.forEach((user)=>{
   //     usersArr.push(user.id)
@@ -114,7 +122,7 @@ router.post('/sendtime',(req,res) => {
   //   usersArr.pop(usersArr.length-1)
   //   users = usersArr.join(",")
   //   console.log("USERS: " + users)
-  
+
   //   //open multiperson instant message using slackjs module
   //   slack.mpim.open({token, users}, (err, data) => { 
   //     //send request for meeting using slackjs module
