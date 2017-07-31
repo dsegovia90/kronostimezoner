@@ -89,34 +89,37 @@ router.post('/showdate', (req, res) => {
 router.post('/sendtime',(req,res) => {
   res.end();
   let channel = req.body.channel_id
-  let token = process.env.VERIFICATION_TOKEN
-  let unixDate = Math.round((new Date()).getTime() / 1000)
+  let token = 'xoxp-181862360722-182663196534-217571768144-d7ca78b0a397f95d08167b8c06aa65e2'
+  let unixDate = Math.round(Date.now() / 1000)
   let text = `<!date^${unixDate}^The time and date is {date} at {time}.|Can we meet soon?>`
-  slack.users.list({token}, (err, data) => {
-    // console.log("DATA: " + JSON.stringify(data))
-    let usersArr = [] 
-    let users = ''
-    
-    //create array of user id's
-    data.members.forEach((user)=>{
-      usersArr.push(user.id)
-    })
-
-    //remove the bot id as it can't join
-    usersArr.pop(usersArr.length-1)
-    users = usersArr.join(",")
-    console.log("USERS: " + users)
   
-    //open multiperson instant message using slackjs module
-    slack.mpim.open({token, users}, (err, data) => { 
-      //send request for meeting using slackjs module
-      slack.chat.postMessage({token, channel, text}, (err, data) => { 
-      if(err){
-        console.log("POST ERROR: " + JSON.stringify(err))
-      }
-    })
-   })
+  slack.chat.postMessage({token, channel, text}, (err, data) => { 
+    if(err){
+      console.error(err)
+    }
   })
+
+  // slack.users.list({token}, (err, data) => {
+  //   if(err) console.error(err)
+  //   // console.log("DATA: " + JSON.stringify(data))
+  //   let usersArr = [] 
+  //   let users = ''
+    
+  //   //create array of user id's
+  //   data.members.forEach((user)=>{
+  //     usersArr.push(user.id)
+  //   })
+
+  //   //remove the bot id as it can't join
+  //   usersArr.pop(usersArr.length-1)
+  //   users = usersArr.join(",")
+  //   console.log("USERS: " + users)
+  
+  //   //open multiperson instant message using slackjs module
+  //   slack.mpim.open({token, users}, (err, data) => { 
+  //     //send request for meeting using slackjs module
+  //  })
+  // })
 })
 
 module.exports = router;
