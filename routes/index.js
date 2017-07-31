@@ -115,12 +115,15 @@ router.post('/catchmessages', (req, res) => {
   console.log(req.body.event)
   console.log('\n')
   res.send(req.body.challenge)
-  let text = req.body.event.text
+  let receivedText = req.body.event.text
+  let timeRegex = /\d{1,2}:\d{2}(pm|am)?/
 
-  if(/\d{1,2}:\d{2}(pm|am)?/.test(text)){
+  if(timeRegex.test(receivedText) && req.body.event.subtype !== 'bot_message'){
     let token = process.env.VERIFICATION_TOKEN
     let channel = req.body.event.channel
-    let text = 'Found a time in the text...'
+    let time = receivedText.match(timeRegex)
+    let text = 'Found a time in the text of ' + time[0]
+    
     slack.chat.postMessage({token, channel, text}, (err, data) => {
       if(err) console.log(err)
     })
