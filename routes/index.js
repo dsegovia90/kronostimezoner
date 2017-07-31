@@ -105,29 +105,6 @@ router.post('/sendtime', (req, res) => {
   }).catch((err) => {
     console.error(err)
   })
-
-
-  // slack.users.list({token}, (err, data) => {
-  //   if(err) console.error(err)
-  //   // console.log("DATA: " + JSON.stringify(data))
-  //   let usersArr = [] 
-  //   let users = ''
-
-  //   //create array of user id's
-  //   data.members.forEach((user)=>{
-  //     usersArr.push(user.id)
-  //   })
-
-  //   //remove the bot id as it can't join
-  //   usersArr.pop(usersArr.length-1)
-  //   users = usersArr.join(",")
-  //   console.log("USERS: " + users)
-
-  //   //open multiperson instant message using slackjs module
-  //   slack.mpim.open({token, users}, (err, data) => { 
-  //     //send request for meeting using slackjs module
-  //  })
-  // })
 })
 
 module.exports = router;
