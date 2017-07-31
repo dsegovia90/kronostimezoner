@@ -113,12 +113,14 @@ router.post('/sendtime', (req, res) => {
 
 router.post('/catchmessages', (req, res) => {
   console.log(req.body.event)
+  console.log('\n')
   res.send(req.body.challenge)
+  let text = req.body.event.text
 
-  if(req.body.event.text === 'respond me app'){
+  if(/\d{1,2}:\d{2}(pm|am)?/.test(text)){
     let token = process.env.VERIFICATION_TOKEN
     let channel = req.body.event.channel
-    let text = 'Responding...'
+    let text = 'Found a time in the text...'
     slack.chat.postMessage({token, channel, text}, (err, data) => {
       if(err) console.log(err)
     })
