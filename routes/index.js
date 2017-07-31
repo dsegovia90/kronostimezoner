@@ -89,7 +89,11 @@ router.post('/showdate', (req, res) => {
 router.post('/sendtime', (req, res) => {
   res.end();
   let channel = req.body.channel_id
-  let token = process.env.VERIFICATION_TOKEN
+  /*  Note that this token is specific for each team, in this case
+      this token is of our team. Once we develop the install button, 
+      we need to store this key for each team to be able to send
+      messages.  */
+  let token = process.env.VERIFICATION_TOKEN 
   let unixDate = Math.round(Date.now() / 1000)
   let text = `<!date^${unixDate}^The time and date is {date} at {time}.|Can we meet soon?>`
 
