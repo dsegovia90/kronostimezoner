@@ -87,6 +87,7 @@ router.post('/showdate', (req, res) => {
 })
 
 router.post('/sendtime',(req,res) => {
+  res.end();
   let channel = req.body.channel_id
   let token = process.env.VERIFICATION_TOKEN
   let unixDate = Math.round((new Date()).getTime() / 1000)
