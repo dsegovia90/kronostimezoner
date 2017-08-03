@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const responses = require('../lib/slack/responses')
-const User = require('../models/Users')
+const attachments = require('../lib/slack/attachments')
 const cities = require('../lib/cities')
 const moment = require('moment')
 const slack = require('slack')
@@ -29,27 +28,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/helloworld', (req, res) => {
-  User.findOne({ userId: req.body.user_id, teamId: req.body.team_id })
-    .then((user) => {
-      let message = undefined
-      if (!user) {
-        user = new User()
-        message = { "text": `Hello *@${req.body.user_name}*!\nYou are now stored in the database.` }
-      }
-      user.token = req.body.token
-      user.teamId = req.body.team_id
-      user.teamDomain = req.body.team_domain
-      user.userId = req.body.user_id
-      user.userName = req.body.user_name
-      message = message ? message : { "text": `Welcome back *@${req.body.user_name}*!` }
-      user.save()
-      return message
-    }).then((message) => {
-      res.json(message)
-    }).catch((err) => {
-      //this catches any error in the chain, no need to catch twice.
-      console.log(err)
-    })
+ res.json({text:"hello world"})
 })
 
 router.post('/choosedate', (req, res) => {
