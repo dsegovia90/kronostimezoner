@@ -1,7 +1,37 @@
 const express = require('express');
 const router = express.Router();
 const slack = require('slack')
+const request = require('request')
 
+router.get('/', (req, res, next) => {
+	res.status(200).sendFile('/public/index.html')
+})
+
+//slack button route
+router.get('/auth', (req, res)=>{
+	res.sendFile(__dirname + '/public/index.html')
+})
+
+//slack button authorization
+router.get('/auth/redirect', (req, res)=>{
+	var options = {
+        uri: 'https://slack.com/api/oauth.access?code='
+            +req.query.code+
+            '&client_id='+process.env.CLIENT_ID+
+            '&client_secret='+process.env.CLIENT_SECRET+
+            '&redirect_uri='+process.env.REDIRECT_URI,
+        method: 'GET'
+    }
+
+  request(options, (error, response, body) => {
+      var JSONresponse = JSON.parse(body)
+      if (!JSONresponse.ok){
+          res.send("Error encountered: \n"+JSON.stringify(JSONresponse)).status(200).end()
+      }else{
+          res.send("/")
+      }
+  })
+})
 
 router.post('/catchmessages', (req, res) => {
   res.send(req.body.challenge)
