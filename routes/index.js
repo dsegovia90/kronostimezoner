@@ -34,9 +34,10 @@ router.post('/catchmessages', (req, res) => {
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
 
     // Separate hour and minutes from the capturedTime for later use
-    let capturedHour = parseInt(capturedTime[0])
+    let capturedAmPm=capturedTime[1].substring(2)
+    let capturedHour = capturedAmPm =='am' ? parseInt(capturedTime[0]) : parseInt(capturedTime[0]+12)
     let capturedMinutes = capturedTime[1] ? parseInt(capturedTime[1].substring(0,2)) : 0
-
+    
     //get the current date in UTC to know the year, month and day in UTC
     let utcDate = new Date(); 
 
