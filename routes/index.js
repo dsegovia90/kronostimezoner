@@ -33,9 +33,12 @@ router.post('/catchmessages', (req, res) => {
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
 
-    // Separate hour and minutes from the capturedTime for later use
+     // SEPARATE HOUR AND MINUTES FOR LATER USE
+     // Determine whether  input time is am or pm
     let capturedAmPm=capturedTime[1].substring(2)
-    let capturedHour = capturedAmPm =='am' ? parseInt(capturedTime[0]) : parseInt(capturedTime[0]+12)
+     //Assign hour according to whether it is am or pm
+    let capturedHour = capturedAmPm =='am' ? parseInt(capturedTime[0]) : parseInt(capturedTime[0])+12
+    // let capturedHour = parseInt(capturedTime[0]) //this only outputs am time
     let capturedMinutes = capturedTime[1] ? parseInt(capturedTime[1].substring(0,2)) : 0
     
     //get the current date in UTC to know the year, month and day in UTC
@@ -84,8 +87,5 @@ router.post('/catchmessages', (req, res) => {
 
   }
 })
-
-
-
 
 module.exports = router;
