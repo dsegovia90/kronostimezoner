@@ -3,13 +3,13 @@ const router = express.Router();
 const slack = require('slack')
 const request = require('request')
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
 	res.status(200).sendFile('/public/index.html')
 })
 
 //slack button route
 router.get('/auth', (req, res)=>{
-	res.sendFile(__dirname + '/public/index.html')
+	res.render(index)
 })
 
 //slack button authorization
