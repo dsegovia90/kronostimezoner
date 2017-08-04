@@ -13,8 +13,6 @@ router.get('/install', (req, res)=>{
   let code = req.query.code
   slack.oauth.access({client_id, client_secret, code}, (err, data) => {
     /* we need to handle the error here and store the data if successfull. */
-
-    console.log(data)
     res.redirect('/')
   })
 })
