@@ -1,35 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const slack = require('slack')
-const request = require('request')
 
 router.get('/', (req, res) => {
-	res.status(200).sendFile('/public/index.html')
+	res.render('index', {title: 'Slack Timezoner', installButtonLink: process.env.INSTALL_BUTTON_LINK}) //this link is unique to each app
 })
 
 //slack button route
-router.get('/auth', (req, res)=>{
-	res.render(index)
-})
+router.get('/install', (req, res)=>{
+  let client_id = process.env.SLACK_CLIENT_ID
+  let client_secret = process.env.SLACK_CLIENT_SECRET
+  let code = req.query.code
+  slack.oauth.access({client_id, client_secret, code}, (err, data) => {
+    /* we need to handle the error here and store the data if successfull. */
 
-//slack button authorization
-router.get('/auth/redirect', (req, res)=>{
-	var options = {
-        uri: 'https://slack.com/api/oauth.access?code='
-            +req.query.code+
-            '&client_id='+process.env.CLIENT_ID+
-            '&client_secret='+process.env.CLIENT_SECRET+
-            '&redirect_uri='+process.env.REDIRECT_URI,
-        method: 'GET'
-    }
-
-  request(options, (error, response, body) => {
-      var JSONresponse = JSON.parse(body)
-      if (!JSONresponse.ok){
-          res.send("Error encountered: \n"+JSON.stringify(JSONresponse)).status(200).end()
-      }else{
-          res.send("/")
-      }
+    console.log(data)
+    res.redirect('/')
   })
 })
 
