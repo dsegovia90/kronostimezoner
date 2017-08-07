@@ -21,7 +21,7 @@ router.get('/install', (req, res) => {
   })
 
   oauthPromise.then((data) => {
-    return [Team.findOne({ teamId: data.team_id }), data]
+    return Promise.all([Team.findOne({ teamId: data.team_id }), data])
   }).then(([team, data]) => {
     if (!team) {
       team = new Team(); // Team didn't exist.
