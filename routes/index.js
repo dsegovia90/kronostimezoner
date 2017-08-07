@@ -47,9 +47,11 @@ router.post('/catchmessages', (req, res) => {
 
   if (timeRegex.test(receivedText) && !req.body.event.subtype) {
     // Everything needed for the slack api interaction except text:
-    let token = process.env.VERIFICATION_TOKEN //extracted from db in the real world
+    console.log(req.body)
     let channel = req.body.event.channel
     let user = req.body.event.user
+    let teamId = req.body.team_id
+    let token = process.env.VERIFICATION_TOKEN //extracted from db in the real world
 
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
