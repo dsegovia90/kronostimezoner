@@ -17,8 +17,7 @@ router.get('/install', (req, res)=>{
       resolve(data)
       reject(err)
     })
-  
-    /* we need to handle the error here and store the data if successfull. */
+
     oauthPromise
     .then((data => {
       let req = req.body
