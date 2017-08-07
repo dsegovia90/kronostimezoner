@@ -77,13 +77,18 @@ router.post('/catchmessages', (req, res) => {
         capturedMinutes
       )).getTime() / 1000
 
-    // This promise fetches the user info (the user is the one who sent the message)
-    let userInfoPromise = new Promise((resolve, reject) => {
-      slack.users.info({ token, user }, (err, data) => {
-        resolve(data)
-        reject(err)
+    let teamTokenPromise = Team.findOne({teamId: teamId})
+    teamTokenPromise.then((team) => {
+      let token = team.accessToken
+      let userInfoPromise = new Promise((resolve, reject) => {
+        slack.users.info({ token, user }, (err, data) => {
+          resolve(data)
+          reject(err)
+        })
       })
+      return userInfoPromise
     })
+    // This promise fetches the user info (the user is the one who sent the message)
 
     userInfoPromise.then((info) => {
 
