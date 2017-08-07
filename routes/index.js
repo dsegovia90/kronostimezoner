@@ -13,8 +13,24 @@ router.get('/install', (req, res)=>{
   let code = req.query.code
   slack.oauth.access({client_id, client_secret, code}, (err, data) => {
     /* we need to handle the error here and store the data if successfull. */
-    res.redirect('/')
-  })
+    let authenticationPromise = new Promise((resolve, reject) => {
+      let authenticate = {
+        code,
+        client_id=process.env.CLIENT_ID,
+        client_secret=process.env.CLIENT_SECRET     
+    }
+      resolve(authenticate)
+      reject(err)
+    })
+
+    authenticationPromise
+      .then(
+        res.redirect('/')
+      )
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 router.post('/catchmessages', (req, res) => {
