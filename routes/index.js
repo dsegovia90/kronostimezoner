@@ -20,7 +20,7 @@ router.get('/install', (req, res)=>{
     })
 
     oauthPromise.then((data) => {
-      return [Team.findOne(data_team.id, data)]
+      return [Team.findOne(data.team_id, data)]
       }).then(([teams, data]) => {
         if(!team){
           team = new Team(); // Team didn't exist.
@@ -39,7 +39,6 @@ router.get('/install', (req, res)=>{
         res.redirect('/')
       })
    })
-
 
 router.post('/catchmessages', (req, res) => {
   res.send(req.body.challenge)
