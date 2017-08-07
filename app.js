@@ -5,10 +5,22 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const index = require('./routes/index');
+const mongoose = require('mongoose')
 const routes = require('./routes/index')
 require('dotenv').config()
 
 const app = express();
+
+mongoose.Promise = global.Promise
+const databaseUri= process.env.MONGO_URI
+// mongoose.connect(databaseUri, { useMongoClient: true })
+mongoose.connect(databaseUri, (err, res) => {
+  if(err){
+    console.log('DB CONNECTION FAIL: ' + err)
+  }else{
+    console.log('DB CONNECTION SUCCESS: ' )
+  }
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
