@@ -17,26 +17,28 @@ router.get('/install', (req, res)=>{
       resolve(data)
       reject(err)
     })
+    })
 
     oauthPromise.then((data) => {
-    return Promise.all([Team.findOne({accessToken: data.access_token}), data])
+      return Promise.all([Team.findOne({accessToken: data.access_token}), data])
       }).then(([team, data]) => {
-      if(!team){
-        team = new Team(); // Team didn't exist.
-      }
-      team.accessToken = data.access_token;
-      team.scope = data.scope;
-      team.userId = data.user_id;
-      team.teamName = data.team_name;
-      team.teamId = data.team_id;
-      
-      return team.save()
-    }).then(() => {
-      res.redirect('/')
-    }).catch((err) => {
-      console.error(err);
-      res.redirect('/')
-    })
+        if(!team){
+          team = new Team(); // Team didn't exist.
+        }
+        team.accessToken = data.access_token
+        team.scope = data.scope
+        team.userId = data.user_id
+        team.teamName = data.team_name
+        team.teamId = data.team_id
+        
+        return team.save()
+      }).then(() => {
+        res.redirect('/')
+      }).catch((err) => {
+        console.error(err);
+        res.redirect('/')
+      })
+   })
 
 
 router.post('/catchmessages', (req, res) => {
@@ -104,7 +106,6 @@ router.post('/catchmessages', (req, res) => {
     .catch((err) => {
       console.error(err)
     })
-
   }
 })
 
