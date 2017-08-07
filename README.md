@@ -12,6 +12,6 @@ The app is built with Node, Express.js, and MongoDB. It should interact with the
 ~~Setup the express app with [express generator](https://expressjs.com/en/starter/generator.html), and have slash command communicate with a POST request that returns a hello world json to slack.~~
 ### ~~2. The App should have a slash command that returns a dropdown so you can set up your city (this could be changed later)~~
 ~~Use the [slack npm module](https://www.npmjs.com/package/slack) to simplify the workload and the interactions.~~
-### 3. Plug in MongoDB with Mongoose to store users. 
-Store the user data if the user does not exist, or update data if the user exists. 
+### 3. Plug in MongoDB with Mongoose to store slack groups. 
+Store the slack team when they hit the install button, and update when they reinstall. 
 ### 4. TBD
