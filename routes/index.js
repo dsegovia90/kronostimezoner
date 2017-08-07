@@ -47,7 +47,6 @@ router.post('/catchmessages', (req, res) => {
 
   if (timeRegex.test(receivedText) && !req.body.event.subtype) {
     // Everything needed for the slack api interaction except text:
-    console.log(req.body)
     let channel = req.body.event.channel
     let user = req.body.event.user
     let teamId = req.body.team_id
@@ -77,9 +76,10 @@ router.post('/catchmessages', (req, res) => {
         capturedMinutes
       )).getTime() / 1000
 
-    let teamTokenPromise = Team.findOne({teamId: teamId})
+    let teamTokenPromise = Team.findOne({ teamId: teamId })
     teamTokenPromise.then((team) => {
       let token = team.accessToken
+      // This promise fetches the user info (the user is the one who sent the message)
       let userInfoPromise = new Promise((resolve, reject) => {
         slack.users.info({ token, user }, (err, data) => {
           resolve(data)
@@ -87,10 +87,7 @@ router.post('/catchmessages', (req, res) => {
         })
       })
       return userInfoPromise
-    })
-    // This promise fetches the user info (the user is the one who sent the message)
-
-    userInfoPromise.then((info) => {
+    }).then((info) => {
 
       // Slack's user info includes the tz_offest which is in unixTime
       const tzOffset = info.user.tz_offset
@@ -108,10 +105,9 @@ router.post('/catchmessages', (req, res) => {
           reject(err)
         })
       })
+    }).catch((err) => {
+      console.error(err)
     })
-      .catch((err) => {
-        console.error(err)
-      })
   }
 })
 
