@@ -5,7 +5,8 @@ const TeamsSchema = new mongoose.Schema({
   userId:{type: String},
   scope:{type:String},
   teamName:{type:String},
-  teamId: {type:String}
+  teamId: {type:String},
+  lastUpdate: {type:Date, default:new Date()}
 })
 
 module.exports = mongoose.model('Teams', TeamsSchema)
