@@ -26,7 +26,6 @@ router.get('/install', (req, res) => {
     if (!team) {
       team = new Team(); // Team didn't exist.
     }
-    console.log(data)
     team.accessToken = data.access_token
     team.scope = data.scope
     team.userId = data.user_id
