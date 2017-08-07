@@ -18,27 +18,29 @@ router.get('/install', (req, res)=>{
       reject(err)
     })
 
-    oauthPromise
-    .then((data => {
-      let req = req.body
-      let accessToken = req.access_token,
-      userId = req.user_id,
-      scope = req.scope,
-      teamName = req.team_name,
-      teamId = req.team_id
-
-      let authenticate = {
-        req,
-        userId,
-        scope,
-        teamName,
-        teamId
+    oauthPromise.then((data) => {
+    return Promise.all([Team.findOne({accessToken: data.access_token}), data])
+      }).then(([team, data]) => {
+      if(!team){
+        team = new Team(); // Team didn't exist.
       }
-      return authenticate
-      })
-    )
-    .catch((err) => {
-      console.log(err)
+      team.accessToken = data.access_token;
+      team.scope = data.scope;
+      team.userId = data.user_id;
+      team.teamName = data.team_name;
+      team.teamId = data.team_id;
+      team.bot = {
+        bot_user_id: data.bot.bot_user_id,
+        bot_access_token: data.bot.bot_access_token
+      }
+      return team.save()
+    }).then(() => {
+      req.flash('success', 'Successfully installed the slack app!');
+      res.redirect('/')
+    }).catch((err) => {
+      console.error(err);
+      req.flash('danger', 'Failed to install app.');
+      res.redirect('/')
     })
 
 
