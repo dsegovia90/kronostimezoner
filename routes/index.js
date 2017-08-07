@@ -11,16 +11,23 @@ router.get('/install', (req, res)=>{
   let client_id = process.env.SLACK_CLIENT_ID
   let client_secret = process.env.SLACK_CLIENT_SECRET
   let code = req.query.code
-  slack.oauth.access({client_id, client_secret, code}, (err, data) => {
+
+  let oauthPromise = new Promise((resolve, reject) => {
+    slack.oauth.access({client_id, client_secret, code}, (err, data) => {
+      resolve(data)
+      reject(err)
+    })
+  
     /* we need to handle the error here and store the data if successfull. */
-    let req = req.body
-    let accessToken = req.access_token,
+    oauthPromise
+    .then((data => {
+      let req = req.body
+      let accessToken = req.access_token,
       userId = req.user_id,
       scope = req.scope,
       teamName = req.team_name,
       teamId = req.team_id
 
-    let authenticationPromise = new Promise((resolve, reject) => {
       let authenticate = {
         req,
         userId,
@@ -28,19 +35,13 @@ router.get('/install', (req, res)=>{
         teamName,
         teamId
       }
-      resolve(authenticate)
-      reject(err)
-    })
-
-    authenticationPromise
-      .then(
-        res.redirect('/')
-      )
-    })
+      return authenticate
+      })
+    )
     .catch((err) => {
       console.log(err)
     })
-})
+
 
 router.post('/catchmessages', (req, res) => {
   res.send(req.body.challenge)
