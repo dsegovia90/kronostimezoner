@@ -11,10 +11,31 @@ router.get('/install', (req, res) => {
   let client_id = process.env.SLACK_CLIENT_ID
   let client_secret = process.env.SLACK_CLIENT_SECRET
   let code = req.query.code
-  slack.oauth.access({ client_id, client_secret, code }, (err, data) => {
-    /* we need to handle the error here and store the data if successfull. */
-    res.redirect('/')
+
+  let oauthPromise = new Promise((resolve, reject) => {
+    slack.oauth.access({ client_id, client_secret, code }, (err, data) => {
+      resolve(data)
+      reject(err)
+    })
   })
+
+  oauthPromise.then((data) => {
+    return [Team.findOne(data.team_id, data)]
+  }).then(([teams, data]) => {
+    if (!team) {
+      team = new Team(); // Team didn't exist.
+    }
+    team.accessToken = data.access_token
+    team.scope = data.scope
+    team.userId = data.user_id
+    team.teamName = data.team_name
+    team.teamId = data.team_id
+
+    return team.save()
+  }).then(() => {
+    res.redirect('/')
+  }).catch((err) => {
+    console.error(err);
 })
 
 router.post('/catchmessages', (req, res) => {
@@ -82,7 +103,10 @@ router.post('/catchmessages', (req, res) => {
       .catch((err) => {
         console.error(err)
       })
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4bf1dd5ba1644fcf22b00aa9f1c1d5ee4722bbb7
   }
 })
 
