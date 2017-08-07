@@ -20,7 +20,7 @@ router.get('/install', (req, res) => {
   })
 
   oauthPromise.then((data) => {
-    return [Team.findOne({teamId:data.team_id}, data)]
+    return [Team.findOne({ teamId: data.team_id }, data)]
   }).then(([teams, data]) => {
     if (!team) {
       team = new Team(); // Team didn't exist.
@@ -36,6 +36,7 @@ router.get('/install', (req, res) => {
     res.redirect('/')
   }).catch((err) => {
     console.error(err);
+  })
 })
 
 router.post('/catchmessages', (req, res) => {
@@ -103,10 +104,6 @@ router.post('/catchmessages', (req, res) => {
       .catch((err) => {
         console.error(err)
       })
-<<<<<<< HEAD
-=======
-
->>>>>>> 4bf1dd5ba1644fcf22b00aa9f1c1d5ee4722bbb7
   }
 })
 
