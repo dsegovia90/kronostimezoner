@@ -56,8 +56,21 @@ router.post('/catchmessages', (req, res) => {
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
 
     // SEPARATE HOUR AND MINUTES FOR LATER USE
-    // Determine whether  input time is am or pm
-    let capturedAmPm = capturedTime[1].substring(2)
+    // Set user input time to am if no stipulation otherwise assign am or pm to variable
+    let capturedAmPm = capturedTime[1].substring(2).length == 0 ? 'am' : capturedTime[1].substring(2)
+
+
+     //handle 12:00/12:00am/12:00pm user input
+    if(capturedAmPm=='am'){
+      if((capturedTime[1].substring(2).length == 2 && capturedTime[0]=='12') || (capturedTime[1].substring(2).length == 0 && capturedTime[0]=='12') ){
+        capturedTime[0] = '24'
+      }
+    }else if(capturedAmPm =='pm'){
+      if(capturedTime[0]=='12'){
+        capturedTime[0] = '0'
+      } 
+    }
+
     //Assign hour according to whether it is am or pm
     let capturedHour = capturedAmPm == 'am' ? parseInt(capturedTime[0]) : parseInt(capturedTime[0]) + 12
     // let capturedHour = parseInt(capturedTime[0]) //this only outputs am time
