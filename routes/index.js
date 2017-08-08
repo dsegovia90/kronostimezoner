@@ -103,13 +103,13 @@ router.post('/catchmessages', (req, res) => {
 
       // Slack's user info includes the tz_offest which is in unixTime
       const tzOffset = info.user.tz_offset
-      console.log("USER: " + JSON.stringify(info.user.name))
+      
       let userName = info.user.name
       // We use the created utcProjectedTime - tzOffset of the user to display it in local time for the viewer
       let unixDate = utcProjectedTime - tzOffset
 
       // This creates the message, needs formatting. 
-      let text = `<!date^${unixDate}^ The time @${userName} mentioned translates into {time} in your time.|Can we meet soon?>`
+      let text = `The time <@${user}> mentioned translates into <!date^${unixDate}^ {time} in your time.|Can we meet soon?>`
 
       let postMessagePromise = new Promise((resolve, reject) => {
         slack.chat.postMessage({ token, channel, text }, (err, data) => {
