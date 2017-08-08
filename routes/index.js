@@ -54,11 +54,10 @@ router.post('/catchmessages', (req, res) => {
 
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
-
+    
     // SEPARATE HOUR AND MINUTES FOR LATER USE
     // Set user input time to am if no stipulation otherwise assign am or pm to variable
     let capturedAmPm = capturedTime[1].substring(2).length == 0 ? 'am' : capturedTime[1].substring(2)
-
 
      //handle 12:00/12:00am/12:00pm user input
     if(capturedAmPm=='am'){
@@ -109,7 +108,7 @@ router.post('/catchmessages', (req, res) => {
       let unixDate = utcProjectedTime - tzOffset
 
       // This creates the message, needs formatting. 
-      let text = `<!date^${unixDate}^The translation of that time is {time}.|Can we meet soon?>`
+      let text = `The time <@${user}> mentioned translates into <!date^${unixDate}^ {time} in your time.|Can we meet soon?>`
 
       let postMessagePromise = new Promise((resolve, reject) => {
         slack.chat.postMessage({ token, channel, text }, (err, data) => {
