@@ -14,7 +14,7 @@ const app = express();
 mongoose.Promise = global.Promise
 const databaseUri= process.env.MONGO_URI
 // mongoose.connect(databaseUri, { useMongoClient: true })
-mongoose.connect(databaseUri, (err, res) => {
+mongoose.connect(databaseUri,{ useMongoClient: true }, (err, res) => {
   if(err){
     console.log('DB CONNECTION FAIL: ' + err)
   }else{
