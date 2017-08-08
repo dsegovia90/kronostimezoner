@@ -98,13 +98,14 @@ router.post('/catchmessages', (req, res) => {
       // This creates the message, needs formatting. 
       let text = `<!date^${unixDate}^The translation of that time is {time}.|Can we meet soon?>`
 
-      // Return a promise to catch any errors. 
-      return postMessagePromise = new Promise((resolve, reject) => {
+      let postMessagePromise = new Promise((resolve, reject) => {
         slack.chat.postMessage({ token, channel, text }, (err, data) => {
           resolve(data)
           reject(err)
         })
       })
+      // Return a promise to catch any errors. 
+      return postMessagePromise
     }).catch((err) => {
       console.error(err)
     })
