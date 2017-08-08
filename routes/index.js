@@ -60,7 +60,7 @@ router.post('/catchmessages', (req, res) => {
     let capturedAmPm = capturedTime[1].substring(2).length == 0 ? 'am' : capturedTime[1].substring(2)
 
 
-     //handle 12:00 hour
+     //handle 12:00/12:00am/12:00pm user input
     if(capturedAmPm=='am'){
       if((capturedTime[1].substring(2).length == 2 && capturedTime[0]=='12') || (capturedTime[1].substring(2).length == 0 && capturedTime[0]=='12') ){
         capturedTime[0] = '24'
