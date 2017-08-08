@@ -103,8 +103,7 @@ router.post('/catchmessages', (req, res) => {
 
       // Slack's user info includes the tz_offest which is in unixTime
       const tzOffset = info.user.tz_offset
-      
-      let userName = info.user.name
+
       // We use the created utcProjectedTime - tzOffset of the user to display it in local time for the viewer
       let unixDate = utcProjectedTime - tzOffset
 
