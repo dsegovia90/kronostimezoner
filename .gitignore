@@ -1,3 +1,8 @@
 node_modules
 .env
 scrap.js
+extra_images
+landing.pug
+public/stylesheets/bulma.css.map
+public/stylesheets/landing.css
+demo.textClipping

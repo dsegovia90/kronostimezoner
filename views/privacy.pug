@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  section(class="hero is-primary is-large header-image")
+    div.hero-head
+      header.nav
+        div.container
+          div.nav-left
+            a(class="nav-item" href="#")
+              img(src="../images/timezoner5.png" alt="Logo")
+          span.nav-toggle
+            span
+            span
+            span
+          div(class="nav-right nav-menu")
+            a(class="nav-item" href="/") Install
+            a(class="nav-item" href="/support") Support
+            a(class="nav-item is-active" href="/privacy") Privacy
+            //- span.nav-item
+            //-   a(class="button is-info is-outlined is-inverted" href=installButtonLink)
+            //-     span.icon
+            //-       i(class="fa fa-github")
+            //-     span Download
+    div.hero-body
+      div(class="container has-text-centered")
+        h1(class="title title-size") Timezoner
+        br
+        h2(class="subtitle is-3")  A Slack bot for communicating time between remote team members in different Timezones
+        br
+        //- p
+        //-  a(href=installButtonLink)  
+        //-   img(alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" 
+        //-   srcset="https://platform.slack-edge.com/img/add_to_slack@2x.png 2x, https://platform.slack-edge.com/img/add_to_slack.png 1x")
+  div(class="hero-body section-color")
+      div(class="container main-body")
+        div(class="columns is-vcentered")
+         div(class="column is-10 is-offset-1")
+            div(class="content blog-post section")
+                h1(class="title is-2") Privacy Policy
+                h3.is-3 Your privacy is important to us.
+                ol
+                    li  It is Timezoner As A Service's policy to respect your privacy regarding any information we may collect while operating our website. Accordingly, we have developed this privacy policy in order for you to understand how we collect, use, communicate, disclose and otherwise make use of personal information. We have outlined our privacy policy below.
+                    li  Before or at the time of collecting personal information, we will identify the purposes for which information is being collected.
+                    li We will collect and use personal information solely for fulfilling those purposes specified by us and for other ancillary purposes, unless we obtain the consent of the individual concerned or as required by law.
+                    li Personal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date.
+                    li We will protect personal information by using reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.
+                    li We will make readily available to customers information about our policies and practices relating to the management of personal information.
+                    li We will only retain personal information for as long as necessary for the fulfilment of those purposes.
+                    li We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained. Timezoner As A Service may change this privacy policy from time to time at Timezoner As A Service's sole discretion.
+  div(class="section footer my-footer")
+    div.container
+      div(class="content has-text-centered")
+        p Timezoner @Copyright 2017 by Chingu-Voyage-Bears1.
+        p View Source Code at: 
+          a(class="icon" href="https://github.com/sego90/slack-timezoner")
+            i(class="fa fa-github")
+
+  script(async type="text/javascript" src="../js/bulma.js")   
