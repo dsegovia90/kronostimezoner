@@ -19,7 +19,7 @@
  @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
        padding-bottom: 9rem; 
-       padding-top: 9rem; 
+       padding-top: 6rem; 
   }
 }
 
@@ -40,4 +40,8 @@
 .what-to-do{
   padding-bottom:100px;
   padding-top:0;
+}
+
+.title-size{
+  font-size:6rem;
 }
