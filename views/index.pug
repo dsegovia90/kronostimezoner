@@ -17,7 +17,7 @@ block content
             a(class="nav-item" href="/support") Support
             a(class="nav-item" href="/privacy") Privacy
             span.nav-item
-              a(class="button is-info is-outlined is-inverted" href=installButtonLink)
+              a(class="button is-info is-outlined is-inverted" href=installButtonLink target="_blank")
                 span.icon
                   i(class="fa fa-github")
                 span Download
@@ -28,15 +28,15 @@ block content
         h2(class="subtitle is-3")  A Slack bot for communicating time between remote team members in different Timezones
         br
         p
-         a(href=installButtonLink)  
+         a(href=installButtonLink target="_blank")  
           img(alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" 
           srcset="https://platform.slack-edge.com/img/add_to_slack@2x.png 2x, https://platform.slack-edge.com/img/add_to_slack.png 1x")
   div(class="hero-body section-color")
       div(class="container has-text-centered main-body")
         div(class="columns is-vcentered")
           div(class="column is-5") 
-            img(src="../images/demo9.gif")
-          div(class="column is-6 is-offset-1")
+            img(src="../images/demo9.gif" loop="infinite")
+          div(class="column is-6 is-offset-1" \)
             h1(class="title is-2") Introducing Timezoner
             br
             h2(class="subtitle is-5") Tired of trying to figure out what time your remote team member is talking about because he or she is in another timezone?  Timezoner will permit a remote slack group to communicate the local time of other participants to avoid confusion and daylight saving issues. Less thinking more communicating. 
@@ -47,7 +47,7 @@ block content
             h2(class="title is-2 has-text-centered") What to do
             p  After you download the app, simply create a message including the time in a 3:00 format or a 3:00am (or pm) format and your remote team members will receive the time in their timezone. It's that simple. So what are you waiting for?
             p
-              a(href=installButtonLink)  
+              a(href=installButtonLink target="_blank")  
                 img(alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" 
                 srcset="https://platform.slack-edge.com/img/add_to_slack@2x.png 2x, https://platform.slack-edge.com/img/add_to_slack.png 1x")
   div(class="section footer my-footer")
