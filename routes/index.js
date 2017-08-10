@@ -14,4 +14,8 @@ router.get('/support', (req,res) => {
   res.render('support', {title: 'Timezoner', installButtonLink: process.env.INSTALL_BUTTON_LINK })
 })
 
+router.get('/thanks', (req,res) => {
+  res.render('thanks', {title: 'Timezoner', installButtonLink: process.env.INSTALL_BUTTON_LINK })
+})
+
 module.exports = router;
