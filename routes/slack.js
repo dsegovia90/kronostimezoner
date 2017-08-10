@@ -42,11 +42,11 @@ router.post('/catchmessages', (req, res) => {
   let timeRegex = /\d{1,2}:\d{2}(pm|am)?/i
 
   if (timeRegex.test(receivedText) && !req.body.event.subtype) {
+    console.log('received a time!')
     // Everything needed for the slack api interaction except text:
     let channel = req.body.event.channel
     let user = req.body.event.user
     let teamId = req.body.team_id
-    let token = process.env.VERIFICATION_TOKEN //extracted from db in the real world
 
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
@@ -83,10 +83,10 @@ router.post('/catchmessages', (req, res) => {
         capturedHour,
         capturedMinutes
       )).getTime() / 1000
-
+    let token
     let teamTokenPromise = Team.findOne({ teamId: teamId })
     teamTokenPromise.then((team) => {
-      let token = team.accessToken
+      token = team.accessToken
       // This promise fetches the user info (the user is the one who sent the message)
       let userInfoPromise = new Promise((resolve, reject) => {
         slack.users.info({ token, user }, (err, data) => {
