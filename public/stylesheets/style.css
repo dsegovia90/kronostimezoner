@@ -24,6 +24,7 @@
 /* for What To Do Section */
 .what-to-do{
   padding: 0 100px 100px 100px;
+  margin-top: -30px;
 }
 
 /* for navbar title */
@@ -32,10 +33,10 @@
 }
 
 
- @media screen and (min-width: 769px), print{
+@media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
-       padding-bottom: 9rem; 
-       padding-top: 6rem; 
+    padding-bottom: 9rem; 
+    padding-top: 6rem; 
   }
 }
 
@@ -48,5 +49,6 @@
 @media screen and (max-width: 1199px), print{
   .what-to-do{
     padding: 0;
+    margin-top: -60px;
   }
 }
