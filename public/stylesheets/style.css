@@ -13,7 +13,7 @@
 .my-footer{
   background:#302A20;
   color:#fff;
-  padding-top:65px;
+  padding:65px 0;
 }
 
  @media screen and (min-width: 769px), print{
