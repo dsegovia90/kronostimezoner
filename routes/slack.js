@@ -38,6 +38,7 @@ router.get('/install', (req, res) => {
 
 router.post('/catchmessages', (req, res) => {
   res.send(req.body.challenge)
+  console.log(req.body)
   let receivedText = req.body.event.text
   let timeRegex = /\d{1,2}:\d{2}(pm|am)?/i
 
