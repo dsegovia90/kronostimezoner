@@ -3,7 +3,10 @@ const router = express.Router();
 
 
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Timezoner', installButtonLink: process.env.INSTALL_BUTTON_LINK }) //this link is unique to each app
+  let message = req.query.install === 'unsuccessful' ? 
+    'App could not be installed. Please contact support.' : 
+    null
+  res.render('index', { title: 'Timezoner', installButtonLink: process.env.INSTALL_BUTTON_LINK, message: message}) //this link is unique to each app
 })
 
 router.get('/privacy', (req,res) => {
