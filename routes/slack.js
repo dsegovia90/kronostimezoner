@@ -32,8 +32,8 @@ router.get('/install', (req, res) => {
   }).then(() => {
     res.redirect('/thanks');
   }).catch((err) => {
-    req.flash('danger', 'App could not be installed. Please contact support.');
-    res.redirect('/');
+    
+    res.redirect('/?install=unsuccessful');
     console.error(err);
   })
 })
