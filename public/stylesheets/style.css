@@ -1,6 +1,7 @@
 .section.blog {
   background-color: #fff;
 }
+
 .blog-post > p {
   font-size: 19px;
 }
@@ -8,7 +9,7 @@
 .main-body{
   padding-top:30px;
   padding-bottom:100px;
-  }
+}
 
 .my-footer{
   background:#302A20;
