@@ -30,9 +30,10 @@ router.get('/install', (req, res) => {
 
     return team.save()
   }).then(() => {
-    res.redirect('/thanks')
+    res.redirect('/thanks');
   }).catch((err) => {
-    res.redirect('/')
+    req.flash('danger', 'App could not be installed. Please contact support.');
+    res.redirect('/');
     console.error(err);
   })
 })
