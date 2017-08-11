@@ -8,7 +8,6 @@ const index = require('./routes/index');
 const slack = require('./routes/slack');
 const mongoose = require('mongoose')
 const routes = require('./routes/index')
-const flash = require('express-flash')
 require('dotenv').config()
 
 const app = express();
@@ -35,8 +34,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(flash());
 
 app.use('/', index);
 app.use('/slack', slack);
