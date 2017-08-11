@@ -32,6 +32,7 @@ router.get('/install', (req, res) => {
   }).then(() => {
     res.redirect('/thanks')
   }).catch((err) => {
+    res.redirect('/')
     console.error(err);
   })
 })
