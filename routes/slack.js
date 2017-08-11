@@ -50,7 +50,6 @@ router.post('/catchmessages', (req, res) => {
 
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
-    
     // SEPARATE HOUR AND MINUTES FOR LATER USE
     // Set user input time to am if no stipulation otherwise assign am or pm to variable
     let capturedAmPm = capturedTime[1].substring(2).length == 0 ? 'am' : capturedTime[1].substring(2)
@@ -70,7 +69,7 @@ router.post('/catchmessages', (req, res) => {
     let capturedHour = capturedAmPm == 'am' ? parseInt(capturedTime[0]) : parseInt(capturedTime[0]) + 12
     // let capturedHour = parseInt(capturedTime[0]) //this only outputs am time
     let capturedMinutes = capturedTime[1] ? parseInt(capturedTime[1].substring(0, 2)) : 0
-
+  
     //get the current date in UTC to know the year, month and day in UTC
     let utcDate = new Date();
 
@@ -96,25 +95,32 @@ router.post('/catchmessages', (req, res) => {
       })
       return userInfoPromise
     }).then((info) => {
+        // Slack's user info includes the tz_offest which is in unixTime
+        const tzOffset = info.user.tz_offset
 
-      // Slack's user info includes the tz_offest which is in unixTime
-      const tzOffset = info.user.tz_offset
+        // We use the created utcProjectedTime - tzOffset of the user to display it in local time for the viewer
+        let unixDate = utcProjectedTime - tzOffset
+        
 
-      // We use the created utcProjectedTime - tzOffset of the user to display it in local time for the viewer
-      let unixDate = utcProjectedTime - tzOffset
-
-      // This creates the message, needs formatting. 
-      let text = `The time <@${user}> mentioned translates into <!date^${unixDate}^ {time} in your time.|Can we meet soon?>`
-
-      let postMessagePromise = new Promise((resolve, reject) => {
-        slack.chat.postMessage({ token, channel, text }, (err, data) => {
-          resolve(data)
-          reject(err)
-        })
+        if(capturedHour > 24 || capturedMinutes >59){
+          let text = `*Incorrect Time:*\nHour must be less than 24 & minutes less then 60.\nYou entered ${capturedHour}:${capturedTime[1]}${capturedAmPm} `
+          slack.chat.postMessage({token, channel, text},(err, data)=>{
+            console.log("incorrect time entered")
+            return
+            })
+        }else{
+            let text = `The time <@${user}> mentioned translates into <!date^${unixDate}^ {time} in your time.|Can we meet soon?>`
+            let postMessagePromise = new Promise((resolve, reject) => {
+            slack.chat.postMessage({ token, channel, text }, (err, data) => {
+              resolve(data)
+              reject(err)
+            })
+          })
+          // Return a promise to catch any errors. 
+          return postMessagePromise
+          }      
       })
-      // Return a promise to catch any errors. 
-      return postMessagePromise
-    }).catch((err) => {
+      .catch((err) => {
       console.error(err)
     })
   }
