@@ -42,28 +42,27 @@ router.post('/catchmessages', (req, res) => {
   let timeRegex = /\d{1,2}:\d{2}(pm|am)?/i
 
   if (timeRegex.test(receivedText) && !req.body.event.subtype) {
+    console.log('received a time!')
     // Everything needed for the slack api interaction except text:
     let channel = req.body.event.channel
     let user = req.body.event.user
     let teamId = req.body.team_id
-    let token = process.env.VERIFICATION_TOKEN //extracted from db in the real world
 
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
-    
     // SEPARATE HOUR AND MINUTES FOR LATER USE
     // Set user input time to am if no stipulation otherwise assign am or pm to variable
     let capturedAmPm = capturedTime[1].substring(2).length == 0 ? 'am' : capturedTime[1].substring(2)
 
-     //handle 12:00/12:00am/12:00pm user input
-    if(capturedAmPm=='am'){
-      if((capturedTime[1].substring(2).length == 2 && capturedTime[0]=='12') || (capturedTime[1].substring(2).length == 0 && capturedTime[0]=='12') ){
+    //handle 12:00/12:00am/12:00pm user input
+    if (capturedAmPm == 'am') {
+      if ((capturedTime[1].substring(2).length == 2 && capturedTime[0] == '12') || (capturedTime[1].substring(2).length == 0 && capturedTime[0] == '12')) {
         capturedTime[0] = '24'
       }
-    }else if(capturedAmPm =='pm'){
-      if(capturedTime[0]=='12'){
+    } else if (capturedAmPm == 'pm') {
+      if (capturedTime[0] == '12') {
         capturedTime[0] = '0'
-      } 
+      }
     }
 
     //Assign hour according to whether it is am or pm
@@ -83,10 +82,10 @@ router.post('/catchmessages', (req, res) => {
         capturedHour,
         capturedMinutes
       )).getTime() / 1000
-
+    let token
     let teamTokenPromise = Team.findOne({ teamId: teamId })
     teamTokenPromise.then((team) => {
-      let token = team.accessToken
+      token = team.accessToken
       // This promise fetches the user info (the user is the one who sent the message)
       let userInfoPromise = new Promise((resolve, reject) => {
         slack.users.info({ token, user }, (err, data) => {
@@ -96,16 +95,22 @@ router.post('/catchmessages', (req, res) => {
       })
       return userInfoPromise
     }).then((info) => {
-
       // Slack's user info includes the tz_offest which is in unixTime
       const tzOffset = info.user.tz_offset
 
       // We use the created utcProjectedTime - tzOffset of the user to display it in local time for the viewer
       let unixDate = utcProjectedTime - tzOffset
 
-      // This creates the message, needs formatting. 
-      let text = `The time <@${user}> mentioned translates into <!date^${unixDate}^ {time} in your time.|Can we meet soon?>`
+      let text
 
+      if (capturedHour > 24 || capturedMinutes > 59) {
+        text = `_Incorrect Time:_\n` + 
+        `Hour must be less than 24 & minutes less then 60. \n` +
+        `You entered ${capturedHour}:${capturedTime[1]}${capturedAmPm}`
+      } else {
+        text = `The time <@${user}> mentioned translates into <!date^${unixDate}^ {time} in your time.` + 
+        `|Attempting to translate time but your slack version does not support it.>`
+      }
       let postMessagePromise = new Promise((resolve, reject) => {
         slack.chat.postMessage({ token, channel, text }, (err, data) => {
           resolve(data)
@@ -114,9 +119,10 @@ router.post('/catchmessages', (req, res) => {
       })
       // Return a promise to catch any errors. 
       return postMessagePromise
-    }).catch((err) => {
-      console.error(err)
     })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 })
 
