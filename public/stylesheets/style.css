@@ -22,11 +22,15 @@
   margin:-5rem;
 }
 
- @media screen and (min-width: 769px), print{
-  .hero.is-large .hero-body {
-       padding: 6rem 0;
-  }
- }
+/* for What To Do Section */
+.what-to-do{
+  padding: 0 100px 100px 100px;
+}
+
+/* for navbar title */
+.title-size{
+  font-size:6rem;
+}
 
 .main-image{
   background-color: #F62459;
@@ -41,15 +45,21 @@
   background:#fff
 }
 
-/* for What To Do Section */
-.what-to-do{
-  padding: 0 100px 100px 100px;
-  margin-top: -30px;
+@media screen and (min-width: 769px), print{
+  .hero.is-large .hero-body {
+       padding-bottom: 9rem; 
+       padding-top: 6rem; 
+  }
 }
 
-/* for navbar title */
-.title-size{
-  font-size:6rem;
+@media screen and (max-width: 769px), print{
+ .title-size{
+    font-size:4rem;
+  }
 }
 
-
+@media screen and (max-width: 1199px), print{
+  .what-to-do{
+    padding: 0;
+  }
+} 
