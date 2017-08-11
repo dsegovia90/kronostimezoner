@@ -17,6 +17,11 @@
   padding:35px 0;
 }
 
+.thanks-margin{
+  padding:0;
+  margin:-5rem;
+}
+
  @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
        padding: 6rem 0;
@@ -48,22 +53,3 @@
 }
 
 
-@media screen and (min-width: 769px), print{
-  .hero.is-large .hero-body {
-    padding-bottom: 9rem; 
-    padding-top: 6rem; 
-  }
-}
-
-@media screen and (max-width: 769px), print{
- .title-size{
-    font-size:4rem;
-  }
-}
-
-@media screen and (max-width: 1199px), print{
-  .what-to-do{
-    padding: 0;
-    margin-top: -60px;
-  }
-}

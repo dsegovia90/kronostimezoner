@@ -30,8 +30,10 @@ router.get('/install', (req, res) => {
 
     return team.save()
   }).then(() => {
-    res.redirect('/')
+    res.redirect('/thanks');
   }).catch((err) => {
+    
+    res.redirect('/?install=unsuccessful');
     console.error(err);
   })
 })
