@@ -1,6 +1,7 @@
 .section.blog {
   background-color: #fff;
 }
+
 .blog-post > p {
   font-size: 19px;
 }
@@ -8,16 +9,29 @@
 .main-body{
   padding-top:30px;
   padding-bottom:100px;
-  }
+}
 
 .my-footer{
   background:#302A20;
   color:#fff;
-  padding-top:65px;
-  padding-bottom:65px;
+  padding:35px 0;
 }
 
-/* Introducing Timezoner section*/
+ @media screen and (min-width: 769px), print{
+  .hero.is-large .hero-body {
+       padding: 6rem 0;
+  }
+ }
+
+.main-image{
+  background-color: #F62459;
+  background-image: linear-gradient(rgba(159, 152, 166, 0.5),rgba(229, 247, 255, 0.4)),linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1440439307159-c3afc8a8e4ff?dpr=1&auto=format&crop=entropy&fit=crop&w=2000&h=1000&q=40');
+}
+
+.white-text{
+  color:#fff
+}
+
 .section-color{
   background:#fff
 }
