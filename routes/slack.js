@@ -110,7 +110,7 @@ router.post('/catchmessages', (req, res) => {
 
       if (capturedHour > 24 || capturedMinutes > 59) {
         text = `_Incorrect Time:_\n` + 
-        `Hour must be less than 24 & minutes less then 60. \n` +
+        `Hour must be less than 24 & minutes less than 60. \n` +
         `You entered ${capturedHour}:${capturedTime[1]}${capturedAmPm}`
       } else {
         text = `The time <@${user}> mentioned translates into <!date^${unixDate}^ {time} in your time.` + 
