@@ -48,15 +48,34 @@
 @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
        padding-bottom: 9rem; 
-       padding-top: 3rem;
-        
+       padding-top: 3rem;    
+  }
+  .nav-sub{
+    font-size:2rem
   }
 }
 
-@media screen and (max-width: 769px), print{
+@media screen and (max-width: 768px), print{
  .title-size{
-    font-size:4rem;
+    font-size:2.5rem;
   }
+  .thanks-margin{
+    padding:0;
+    margin:0
+  }
+  .main-body{
+    padding-top:0;
+    padding-bottom:100px;
+  }
+
+  .hero.is-large .hero-body {
+    padding-bottom:3rem;
+    padding-top:2rem;   
+}
+  .section{
+    padding:0;
+  }
+  
 }
 
 @media screen and (max-width: 1199px), print{
