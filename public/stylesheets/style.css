@@ -29,7 +29,7 @@
 
 /* for navbar title */
 .title-size{
-  font-size:6rem;
+  font-size:5rem;
 }
 
 .main-image{
@@ -48,7 +48,8 @@
 @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
        padding-bottom: 9rem; 
-       padding-top: 6rem; 
+       padding-top: 3rem;
+        
   }
 }
 
