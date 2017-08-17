@@ -47,7 +47,7 @@
 
 @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
-       padding-bottom: 9rem; 
+       padding-bottom: 8rem; 
        padding-top: 3rem;    
   }
   .nav-sub{
