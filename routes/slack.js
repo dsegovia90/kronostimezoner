@@ -41,6 +41,8 @@ router.get('/install', (req, res) => {
 router.post('/catchmessages', (req, res) => {
   res.send(req.body.challenge)
   let receivedText = req.body.event.text
+  //split receivedText so that you can find the am pm after the space as an index
+  let receivedTextArr = receivedText.toLowerCase().split(' ')
   let timeRegex = /\d{1,2}:\d{2}(pm|am)?/i
 
   if (timeRegex.test(receivedText) && !req.body.event.subtype) {
@@ -49,13 +51,15 @@ router.post('/catchmessages', (req, res) => {
     let channel = req.body.event.channel
     let user = req.body.event.user
     let teamId = req.body.team_id
-
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
     // SEPARATE HOUR AND MINUTES FOR LATER USE
-    // Set user input time to am if no stipulation otherwise assign am or pm to variable
-    let capturedAmPm = capturedTime[1].substring(2).length == 0 ? 'am' : capturedTime[1].substring(2)
-
+    //use to check for ap pm after capturedTime and a space
+    let checkTime = capturedTime.join(':')
+    //variable to see if one index after checktime in receivedTextArr is am or pm
+    let wordAfter = receivedTextArr[receivedTextArr.indexOf(checkTime)+1]
+    //conditionally set variable to am or pm
+    let capturedAmPm = wordAfter == 'pm' ? 'pm' : capturedTime[1].substring(2).length == 0 ? 'am': capturedTime[1].substring(2)
     //handle 12:00/12:00am/12:00pm user input
     if (capturedAmPm == 'am') {
       if ((capturedTime[1].substring(2).length == 2 && capturedTime[0] == '12') || (capturedTime[1].substring(2).length == 0 && capturedTime[0] == '12')) {
@@ -66,7 +70,6 @@ router.post('/catchmessages', (req, res) => {
         capturedTime[0] = '0'
       }
     }
-
     //Assign hour according to whether it is am or pm
     let capturedHour = capturedAmPm == 'am' ? parseInt(capturedTime[0]) : parseInt(capturedTime[0]) + 12
     // let capturedHour = parseInt(capturedTime[0]) //this only outputs am time
