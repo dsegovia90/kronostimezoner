@@ -83,7 +83,7 @@ body{
   }
   .main-body{
     padding-top:0;
-    padding-bottom:100px;
+    padding-bottom: 0;
   }
 
   .hero.is-large .hero-body {
