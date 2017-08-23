@@ -3,8 +3,9 @@ section(class="hero is-primary is-large header-image")
       header.nav
         div.container
           div.nav-left
-            a(class="nav-item" href="#")
-              img(src="../images/kronos2.png" alt="Logo")
+            a(class="nav-item" href="/")
+              h1(class="title") Kronos Timezoner
+            //-   img(src="../images/kronos2.png" alt="Logo")
           span.nav-toggle
             span
             span
@@ -19,11 +20,10 @@ section(class="hero is-primary is-large header-image")
                   i(class="fa fa-github")
                 span Download
     div.hero-body
-      div(class="container has-text-centered")
+      div(class="container has-text-centered my-container")
         h2(class="title title-size")  Allow team members to see actual time in their timezones based on your time input.
-        h3(class="subtitle nav-sub") A bot for Slack
         div(class="count-bkg")
-          p Downloads: #{num}
+          p Number of translated times: #{num}
         br
         p
         a(href=installButtonLink target="_blank")  

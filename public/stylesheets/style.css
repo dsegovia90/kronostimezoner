@@ -11,13 +11,17 @@
   padding-bottom:100px;
 }
 
+.my-container{
+  width:65%;
+}
+
 .count-bkg{
   background: rgba(16, 2, 2, 0.50);
-  width: 30%;
+  width: 40%;
   font-weight: bold;
   margin:0 auto;
   padding:0 5px;
-  font-size:2rem;
+  font-size:1.5rem;
 }
 
 .my-footer{
@@ -39,7 +43,7 @@
 /* for navbar title */
 .title-size{
   font-size:2rem;
-  font-weight:400;
+  font-weight:500;
   letter-spacing:1px;
 }
 
@@ -65,7 +69,7 @@
        padding: 5rem 0; 
   }
   .nav-sub{
-    font-size:2rem;
+    font-size:1.75rem;
   }
 }
 
