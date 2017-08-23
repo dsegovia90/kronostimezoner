@@ -74,9 +74,17 @@ body{
 
 /* mobile */
 @media screen and (max-width: 768px), print{
- .title-size{
-    font-size:2rem;
+
+  .my-container{
+    width:95%;
   }
+
+ .title-size{
+    font-size:1.5rem;
+    font-weight:300;
+    letter-spacing:0;
+  }
+
   .thanks-margin{
     padding:0;
     margin:0
@@ -97,11 +105,11 @@ body{
 
   .count-bkg{
     background: rgba(16, 2, 2, 0.50);
-    width: 70%;
-    font-weight: bold;
+    width: 80%;
+    font-weight: 200;
     margin:0 auto;
     padding:0 5px;
-    font-size:1.5rem;
+    font-size:1.2rem;
   }
   
 }
