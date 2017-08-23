@@ -1,24 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const Team = require('../models/teams.js');
-// const installButtonLink = process.env.INSTALL_BUTTON_LINK
-
-let getCountPromise = new Promise((resolve, reject) => {
-  Team.find({}, (err, data) => {
-    let num = 0
-    data.map((item) => {
-      num += item.count
-    })
-    resolve(num)
-    reject(null)
-  })
-})
 
 router.use((req, res, next) => {
   res.locals.title = 'Kronos Timezoner'
   res.locals.installButtonLink = process.env.INSTALL_BUTTON_LINK
 
-  getCountPromise.then((num) => {
+  let getCountPromise = Team.find({})
+  let num = 0
+
+  getCountPromise.then((teams) => {
+    teams.forEach((team) => {
+      num += team.count
+    })
     res.locals.num = num
     next()
   }).catch((err) => {
@@ -31,7 +25,7 @@ router.get('/', (req, res) => {
   let message = req.query.install === 'unsuccessful' ?
     'App could not be installed. Please contact support.' :
     null
-  res.render('index', { message }) //this link is unique to each app
+  res.render('index', { message })
 })
 
 router.get('/privacy', (req, res) => {
