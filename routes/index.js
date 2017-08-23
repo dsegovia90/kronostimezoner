@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Team = require('../models/teams.js');
-const title = 'Kronos Timezoner'
 // const installButtonLink = process.env.INSTALL_BUTTON_LINK
 
 let getCountPromise = new Promise((resolve, reject) => {
@@ -16,8 +15,8 @@ let getCountPromise = new Promise((resolve, reject) => {
 })
 
 router.use((req, res, next) => {
-  req.locals.title = title
-  req.locals.installButtonLink = process.env.INSTALL_BUTTON_LINK
+  res.locals.title = 'Kronos Timezoner'
+  res.locals.installButtonLink = process.env.INSTALL_BUTTON_LINK
 
   getCountPromise.then((num) => {
     res.locals.num = num
