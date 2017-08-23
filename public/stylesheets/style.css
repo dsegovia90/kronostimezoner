@@ -38,7 +38,9 @@
 
 /* for navbar title */
 .title-size{
-  font-size:5rem;
+  font-size:2rem;
+  font-weight:400;
+  letter-spacing:1px;
 }
 
 #mobile-nav {
@@ -60,18 +62,17 @@
 
 @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
-       padding-bottom: 5rem; 
-       padding-top: 3rem;    
+       padding: 5rem 0; 
   }
   .nav-sub{
-    font-size:1.5rem
+    font-size:2rem;
   }
 }
 
 /* mobile */
 @media screen and (max-width: 768px), print{
  .title-size{
-    font-size:2.5rem;
+    font-size:2rem;
   }
   .thanks-margin{
     padding:0;
