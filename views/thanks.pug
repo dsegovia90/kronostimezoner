@@ -2,22 +2,22 @@ include includes/layout.pug
 
 block content
   include includes/navbar.pug
-  div(class="hero-body section-color")
-      div(class="container main-body")
-        div(class="columns is-vcentered thanks-margin")
-          div(class="column is-10 is-offset-1")
-              div(class="content blog-post section")
+  .hero-body.section-color
+      .container.main-body
+        .columns.is-vcentered.thanks-margin
+          .column.is-10.is-offset-1
+              .content.blog-post.section
                 br
-                figure(class="image is-96x96")
+                figure.image.is-96x96
                   img(src="images/timeclock-simple.png" alt="timezoner clock")
-                h2(class="title is-2") THANK YOU!
+                h2.title.is-2 THANK YOU!
                 h3.is-3 We hope you enjoy #{title}
                 br
                 p Feel free to download the code on Github
                 p
-                a(class="button is-dark" href="https://github.com/sego90/slack-timezoner" target="_blank")
+                a.button.is-dark(href="https://github.com/sego90/slack-timezoner" target="_blank")
                   span.icon
-                      i(class="fa fa-github")
+                      i.fa.fa-github
                   span Download
   include includes/footer.pug 
   script(async type="text/javascript" src="../js/bulma.js")  

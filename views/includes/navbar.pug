@@ -1,29 +1,29 @@
-section(class="hero is-dark is-large header-image")
-    div.hero-head
+section.hero.is-dark.is-large.header-image
+    .hero-head
       header.nav
-        div.container
-          div.nav-left
-            a(class="nav-item" href="/")
-              h1(class="title") Kronos Timezoner
+        .container
+          .nav-left
+            a.nav-item(href="/")
+              h1.title Kronos Timezoner
             //-   img(src="../images/kronos2.png" alt="Logo")
           span.nav-toggle
             span
             span
             span
-          div(class="nav-right nav-menu")
-            a(class="nav-item is-active" href="/") Install
-            a(class="nav-item" href="/support") Support
-            a(class="nav-item" href="/privacy") Privacy
+          .nav-right.nav-menu
+            a.nav-item.is-active(href="/") Install
+            a.nav-item(href="/support") Support
+            a.nav-item(href="/privacy") Privacy
             span.nav-item
-              a(class="button is-info is-outlined is-inverted" href='https://github.com/sego90/slack-timezoner' target="_blank")
+              a.button.is-info.is-outlined.is-inverted(href='https://github.com/sego90/slack-timezoner' target="_blank")
                 span.icon
-                  i(class="fa fa-github")
+                  i.fa.fa-github
                 span Download
-    div.hero-body
-      div(class="container has-text-centered my-container")
-        h2(class="title title-size")  Allow team members to see actual time in their timezones based on your time input.
+    .hero-body
+      .container.has-text-centered.my-container
+        h2.title.title-size Allow team members to see actual time in their timezones based on your time input.
         if(num)
-          div(class="count-bkg")
+          .count-bkg
             p Kronos has translated #{num} timezones.
         br
         p

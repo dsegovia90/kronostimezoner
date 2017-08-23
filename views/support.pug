@@ -2,16 +2,16 @@ include includes/layout.pug
 
 block content
   include includes/navbar.pug
-  div(class="hero-body section-color")
-      div(class="container main-body")
-        div(class="columns is-vcentered ")
-        div(class="column is-10 is-offset-1 thanks-margin")
-            div(class="content blog-post section")
-              br
-              h2(class="title is-2") Support
-              h3.is-3 Feel free to reach out with suggestions and questions.
-              br
-              p
-                a(class= "button" href="mailto:jdrichardstech@google.com?Subject=Timezoner%20Question" target="_top") Email Us
+  .hero-body.section-color
+      .container.main-body
+        .columns.is-vcentered
+        .column.is-10.is-offset-1.thanks-margin
+          .content.blog-post.section
+            br
+            h2.title.is-2 Support
+            h3.is-3 Feel free to reach out with suggestions and questions.
+            br
+            p
+              a.button(href="mailto:jdrichardstech@google.com?Subject=Timezoner%20Question" target="_top") Email Us
   include includes/footer.pug 
   script(async type="text/javascript" src="../js/bulma.js")   
