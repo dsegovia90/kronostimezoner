@@ -1,3 +1,6 @@
+body{
+  font-family:'Asap', sans-serif;
+}
 .section.blog {
   background-color: #fff;
 }
@@ -9,6 +12,17 @@
 .main-body{
   padding-top:30px;
   padding-bottom:100px;
+}
+
+.my-container{
+  width:65%;
+}
+
+.count-bkg{
+  background: rgba(16, 2, 2, 0.50);
+  width: 40%;
+  margin: 0 auto;
+  font-size: 1.5rem;
 }
 
 .my-footer{
@@ -29,7 +43,9 @@
 
 /* for navbar title */
 .title-size{
-  font-size:6rem;
+  font-size:2rem;
+  font-weight:500;
+  letter-spacing:1px;
 }
 
 .main-image{
@@ -47,15 +63,53 @@
 
 @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
-       padding-bottom: 9rem; 
-       padding-top: 6rem; 
+       padding: 5rem 0; 
+  }
+  .nav-sub{
+    font-size:1.75rem;
   }
 }
 
-@media screen and (max-width: 769px), print{
- .title-size{
-    font-size:4rem;
+/* mobile */
+@media screen and (max-width: 768px), print{
+
+  .my-container{
+    width:95%;
   }
+
+ .title-size{
+    font-size:1.5rem;
+    font-weight:300;
+    letter-spacing:0;
+  }
+
+  .thanks-margin{
+    padding:0;
+    margin:0
+  }
+  .main-body{
+    padding-top:0;
+    padding-bottom: 0;
+  }
+
+  .hero.is-large .hero-body {
+    padding-bottom:3rem;
+    padding-top:2rem;   
+  }
+
+  .section{
+    padding:0;
+  }
+
+  .count-bkg{
+    background: rgba(16, 2, 2, 0.50);
+    width: 80%;
+    font-weight: 200;
+    margin:0 auto;
+    padding:0 5px;
+    font-size:1.2rem;
+  }
+  
 }
 
 @media screen and (max-width: 1199px), print{
