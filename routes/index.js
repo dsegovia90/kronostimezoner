@@ -16,6 +16,9 @@ let getCountPromise = new Promise((resolve, reject) => {
 })
 
 router.use((req, res, next) => {
+  req.locals.title = title
+  req.locals.installButtonLink = process.env.INSTALL_BUTTON_LINK
+
   getCountPromise.then((num) => {
     res.locals.num = num
     next()
@@ -29,19 +32,19 @@ router.get('/', (req, res) => {
   let message = req.query.install === 'unsuccessful' ?
     'App could not be installed. Please contact support.' :
     null
-  res.render('index', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK, message }) //this link is unique to each app
+  res.render('index', { message }) //this link is unique to each app
 })
 
 router.get('/privacy', (req, res) => {
-  res.render('privacy', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK })
+  res.render('privacy')
 })
 
 router.get('/support', (req, res) => {
-  res.render('support', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK })
+  res.render('support')
 })
 
 router.get('/thanks', (req, res) => {
-  res.render('thanks', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK })
+  res.render('thanks')
 })
 
 module.exports = router;
