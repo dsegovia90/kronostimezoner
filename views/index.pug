@@ -3,25 +3,25 @@ include includes/layout.pug
 block content
   include includes/navbar.pug
   include includes/flash.pug
-  div(class="hero-body section-color")
-      div(class="container has-text-centered main-body")
-        div(class="columns is-vcentered")
-          div(class="column is-6")
-            h1(class="title is-2") Introducing #{title}
-            br
-            h2(class="subtitle is-5") Tired of trying to figure out what time your remote team member is talking about because he or she is in another timezone?  #{title} will permit a remote slack group to communicate the local time of other participants to avoid confusion and daylight saving issues. Less thinking more communicating. 
-          div(class="column is-6") 
-            img(src="../images/demo25_opt_700x184.gif" loop="infinite")
-        hr
-      .container
-        div(class="columns is-flex-touch")
-          div(class="column is-12 has-text-centered")
-            div(class="content blog-post section what-to-do")
-              h2(class="title is-2 has-text-centered") What to do
-              p  After you download the app, simply create a message including the time in a 3:00 format or a 3:00am (or pm) format and your remote team members will receive the time in their timezone. It's that simple. So what are you waiting for?
-              p
-                a(href=installButtonLink)  
-                  img(alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" 
-                  srcset="https://platform.slack-edge.com/img/add_to_slack@2x.png 2x, https://platform.slack-edge.com/img/add_to_slack.png 1x")
+  .hero-body.section-color
+    .container.has-text-centered.main-body
+      .columns.is-vcentered
+        .column.is-6
+          h1.title.is-2 Introducing #{title}
+          br
+          h2.subtitle.is-5 Tired of trying to figure out what time your remote team member is talking about because he or she is in another timezone?  #{title} will permit a remote slack group to communicate the local time of other participants to avoid confusion and daylight saving issues. Less thinking more communicating. 
+        .column.is-6
+          img(src="../images/demo25_opt_700x184.gif" loop="infinite")
+      hr
+    .container
+      .columns.is-flex-touch
+        .column.is-12.has-text-centered
+          .content.blog-post.section.what-to-do
+            h2.title.is-2.has-text-centered What to do
+            p  After you download the app, simply create a message including the time in a 3:00 format or a 3:00am (or pm) format and your remote team members will receive the time in their timezone. It's that simple. So what are you waiting for?
+            p
+              a(href=installButtonLink)  
+                img(alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" 
+                srcset="https://platform.slack-edge.com/img/add_to_slack@2x.png 2x, https://platform.slack-edge.com/img/add_to_slack.png 1x")
   include includes/footer.pug
   script(async type="text/javascript" src="../js/bulma.js")   
