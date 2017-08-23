@@ -21,10 +21,8 @@ body{
 .count-bkg{
   background: rgba(16, 2, 2, 0.50);
   width: 40%;
-  font-weight: bold;
-  margin:0 auto;
-  padding:0 5px;
-  font-size:1.5rem;
+  margin: 0 auto;
+  font-size: 1.5rem;
 }
 
 .my-footer{
