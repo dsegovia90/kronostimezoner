@@ -22,8 +22,9 @@ section(class="hero is-dark is-large header-image")
     div.hero-body
       div(class="container has-text-centered my-container")
         h2(class="title title-size")  Allow team members to see actual time in their timezones based on your time input.
-        div(class="count-bkg")
-          p Kronos has translated #{num} timezones.
+        if(num)
+          div(class="count-bkg")
+            p Kronos has translated #{num} timezones.
         br
         p
         a(href=installButtonLink target="_blank")  
