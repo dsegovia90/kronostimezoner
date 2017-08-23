@@ -4,56 +4,44 @@ const Team = require('../models/teams.js');
 const title = 'Kronos Timezoner'
 // const installButtonLink = process.env.INSTALL_BUTTON_LINK
 
-let getCountPromise = new Promise((resolve, reject) =>{
+let getCountPromise = new Promise((resolve, reject) => {
   Team.find({}, (err, data) => {
-    console.log("TEAMS: " + JSON.stringify(data))
     let num = 0
-     data.map((item) => {
-      num+= item.count 
+    data.map((item) => {
+      num += item.count
     })
-    console.log("COUNT: " + num )
     resolve(num)
+    reject(null)
+  })
+})
+
+router.use((req, res, next) => {
+  getCountPromise.then((num) => {
+    res.locals.num = num
+    next()
+  }).catch((err) => {
+    res.locals.num = null
+    next()
   })
 })
 
 router.get('/', (req, res) => {
-  let message = req.query.install === 'unsuccessful' ? 
-    'App could not be installed. Please contact support.' : 
+  let message = req.query.install === 'unsuccessful' ?
+    'App could not be installed. Please contact support.' :
     null
-
-  getCountPromise.then(num => {
-    res.render('index', {title, num, installButtonLink:process.env.INSTALL_BUTTON_LINK, message}) //this link is unique to each app
-  })
-  .catch((err) => {
-    console.error(err)
-  })
+  res.render('index', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK, message }) //this link is unique to each app
 })
 
-router.get('/privacy', (req,res) => {
-  getCountPromise.then(num => {
-    res.render('privacy', {title, num, installButtonLink:process.env.INSTALL_BUTTON_LINK})
-  })
-  .catch((err) => {
-    console.error(err)
-  })
+router.get('/privacy', (req, res) => {
+  res.render('privacy', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK })
 })
 
-router.get('/support', (req,res) => {
-  getCountPromise.then(num => {
-    res.render('support', {title, num, installButtonLink:process.env.INSTALL_BUTTON_LINK})
-  })
-  .catch((err) => {
-    console.error(err)
-  })
+router.get('/support', (req, res) => {
+  res.render('support', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK })
 })
 
-router.get('/thanks', (req,res) => {
-  getCountPromise.then(num => {
-    res.render('thanks', {title, num, installButtonLink:process.env.INSTALL_BUTTON_LINK})
-  })
-  .catch((err) => {
-    console.error(err)
-  })
+router.get('/thanks', (req, res) => {
+  res.render('thanks', { title, installButtonLink: process.env.INSTALL_BUTTON_LINK })
 })
 
 module.exports = router;
