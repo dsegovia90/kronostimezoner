@@ -54,12 +54,14 @@ router.post('/catchmessages', (req, res) => {
     // Capture the time the user sent via slack, and split it by the ':'
     let capturedTime = receivedText.match(timeRegex)[0].split(':')
     // SEPARATE HOUR AND MINUTES FOR LATER USE
-    //use to check for ap pm after capturedTime and a space
+    //check for ap pm after capturedTime followed by a space
     let checkTime = capturedTime.join(':')
-    //variable to see if one index after checktime in receivedTextArr is am or pm
-    let wordAfter = receivedTextArr[receivedTextArr.indexOf(checkTime)+1]
+    //capture next index after time
+    let wordAfterTime = receivedTextArr[receivedTextArr.indexOf(checkTime)+1]
+    //capture first two indexes of wordAfterTime
+    let parseAmPm = wordAfterTime ? wordAfterTime.substring(0,2):''
     //conditionally set variable to am or pm
-    let capturedAmPm = wordAfter == 'pm' ? 'pm' : capturedTime[1].substring(2).length == 0 ? 'am': capturedTime[1].substring(2)
+    let capturedAmPm = parseAmPm == 'pm' ? 'pm' : capturedTime[1].substring(2).length == 0 ? 'am': capturedTime[1].substring(2)
     //handle 12:00/12:00am/12:00pm user input
     if (capturedAmPm == 'am') {
       if ((capturedTime[1].substring(2).length == 2 && capturedTime[0] == '12') || (capturedTime[1].substring(2).length == 0 && capturedTime[0] == '12')) {
