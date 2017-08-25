@@ -18,8 +18,7 @@ router.get('/install', (req, res) => {
   });
 
   oauthPromise.then((data) => {
-    return Promise.all([
-      Team.findOne({ teamId: data.team_id }), data]);
+    return Promise.all([Team.findOne({ teamId: data.team_id }), data]);
   }).then(([team, data]) => {
     console.log(data);
     let teamToStore = team;
