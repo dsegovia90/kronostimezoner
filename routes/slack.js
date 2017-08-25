@@ -21,17 +21,17 @@ router.get('/install', (req, res) => {
     Team.findOne({ teamId: data.team_id }), data]))
     .then(([team, data]) => {
       console.log(data);
-      let newTeam = team;
-      if (!newTeam) {
-        newTeam = new Team(); // Team didn't exist.
+      let teamToStore = team;
+      if (!teamToStore) {
+        teamToStore = new Team(); // Team didn't exist.
       }
-      newTeam.accessToken = data.access_token;
-      newTeam.scope = data.scope;
-      newTeam.userId = data.user_id;
-      newTeam.teamName = data.team_name;
-      newTeam.teamId = data.team_id;
+      teamToStore.accessToken = data.access_token;
+      teamToStore.scope = data.scope;
+      teamToStore.userId = data.user_id;
+      teamToStore.teamName = data.team_name;
+      teamToStore.teamId = data.team_id;
 
-      return newTeam.save();
+      return teamToStore.save();
     }).then(() => {
       res.redirect('/thanks');
     }).catch((err) => {
@@ -101,10 +101,10 @@ router.post('/catchmessages', (req, res) => {
     let token;
     const teamTokenPromise = Team.findOne({ teamId });
     teamTokenPromise.then((team) => {
-      const newTeam = team;
-      token = newTeam.accessToken;
-      newTeam.count += 1;
-      newTeam.save();
+      const foundTeam = team;
+      token = foundTeam.accessToken;
+      foundTeam.count += 1;
+      foundTeam.save();
 
       // This promise fetches the user info (the user is the one who sent the message)
       const userInfoPromise = new Promise((resolve, reject) => {
