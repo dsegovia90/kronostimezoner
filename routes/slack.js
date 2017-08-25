@@ -20,6 +20,7 @@ router.get('/install', (req, res) => {
   oauthPromise.then(data => Promise.all([
     Team.findOne({ teamId: data.team_id }), data]))
     .then(([team, data]) => {
+      console.log(data);
       let teamS = team;
       if (!teamS) {
         teamS = new Team(); // Team didn't exist.
@@ -95,9 +96,8 @@ router.post('/catchmessages', (req, res) => {
         utcDate.getUTCMonth(),
         utcDate.getUTCDate(),
         capturedHour,
-        capturedMinutes,
-      ),
-        ).getTime() / 1000;
+        capturedMinutes // eslint-disable-line comma-dangle
+      )).getTime() / 1000;
     let token;
     const teamTokenPromise = Team.findOne({ teamId });
     teamTokenPromise.then((team) => {
