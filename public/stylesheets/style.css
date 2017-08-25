@@ -61,6 +61,10 @@ body{
   background:#fff
 }
 
+.demo-margin{
+  margin:0 auto;
+}
+
 @media screen and (min-width: 769px), print{
   .hero.is-large .hero-body {
        padding: 5rem 0; 
