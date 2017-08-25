@@ -17,27 +17,28 @@ router.get('/install', (req, res) => {
     });
   });
 
-  oauthPromise.then(data => Promise.all([
-    Team.findOne({ teamId: data.team_id }), data]))
-    .then(([team, data]) => {
-      console.log(data);
-      let teamToStore = team;
-      if (!teamToStore) {
-        teamToStore = new Team(); // Team didn't exist.
-      }
-      teamToStore.accessToken = data.access_token;
-      teamToStore.scope = data.scope;
-      teamToStore.userId = data.user_id;
-      teamToStore.teamName = data.team_name;
-      teamToStore.teamId = data.team_id;
+  oauthPromise.then((data) => {
+    return Promise.all([
+      Team.findOne({ teamId: data.team_id }), data]);
+  }).then(([team, data]) => {
+    console.log(data);
+    let teamToStore = team;
+    if (!teamToStore) {
+      teamToStore = new Team(); // Team didn't exist.
+    }
+    teamToStore.accessToken = data.access_token;
+    teamToStore.scope = data.scope;
+    teamToStore.userId = data.user_id;
+    teamToStore.teamName = data.team_name;
+    teamToStore.teamId = data.team_id;
 
-      return teamToStore.save();
-    }).then(() => {
-      res.redirect('/thanks');
-    }).catch((err) => {
-      res.redirect('/?install=unsuccessful');
-      console.error(err);
-    });
+    return teamToStore.save();
+  }).then(() => {
+    res.redirect('/thanks');
+  }).catch((err) => {
+    res.redirect('/?install=unsuccessful');
+    console.error(err);
+  });
 });
 
 router.post('/catchmessages', (req, res) => {
