@@ -12,15 +12,16 @@ router.get('/install', (req, res) => {
 
   const oauthPromise = new Promise((resolve, reject) => {
     slack.oauth.access({ client_id, client_secret, code }, (err, data) => {
-      resolve(data);
-      reject(err);
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
     });
   });
 
-  oauthPromise.then((data) => {
-    return Promise.all([Team.findOne({ teamId: data.team_id }), data]);
-  }).then(([team, data]) => {
-    console.log(data);
+  oauthPromise.then(data => (Promise.all([Team.findOne({ teamId: data.team_id }), data])
+  )).then(([team, data]) => {
     let teamToStore = team;
     if (!teamToStore) {
       teamToStore = new Team(); // Team didn't exist.
