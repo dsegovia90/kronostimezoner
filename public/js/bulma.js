@@ -1,6 +1,6 @@
 // The following code is based off a toggle menu by @Bradcomp
 // source: https://gist.github.com/Bradcomp/a9ef2ef322a8e8017443b626208999c1
-(function () {
+(function toggleMobileNav() {
   const burger = document.querySelector('.nav-toggle'); // eslint-disable-line no-undef
   const menu = document.querySelector('.nav-menu'); // eslint-disable-line no-undef
   burger.addEventListener('click', () => {
