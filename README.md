@@ -2,7 +2,7 @@
 
 Scheduling and sharing times for meetings and other needs can be difficult when communicating across timezones
 
-Kronos Timezoner makes it easy for members of a Slack team to translate their time input across different timezones in a group or direct message
+Kronos Timezoner is a Slack app that simplifies the translation of time between members of the same team who reside or are located in different timezones
 
 Kronos Timezoner is a Build-to-Learn project started by members of the Chingu-Voyage-Bears-Team-1 cohort. Please be patient as we continue to work out bugs, make improvements, and add new features.
 
@@ -14,10 +14,12 @@ And (of course!) feel free to join in the fun!
 
 Getting started with the website is as simple as navigating to the app (http://www.kronostimzoner.com)
 
-Install the Kronos Timezoner app to your slack team to access its features. After installation, the app will automatically translate your first time input into the timezone for each team member in the group or to each member to whom you send a direct message.
+Install the Kronos Timezoner app to your slack team using the install button to access its features. After installation, the app will automatically translate your first time input into the timezone for each team member in the group or to each member to whom you send a direct message.
 
+#### Example
+![kronostimezoner](https://github.com/sego90/kronostimezoner/blob/master/public/images/kronosdemo2_430x282.gif)
 
-
+#### Instructions
 The following time formats are accepted:
 - HH:MM
 - H:MM (will translate to AM)
@@ -27,9 +29,6 @@ The following time formats are accepted:
 - H am (or pm)
 
 Note: input of am or pm is not case sensitive
-
-#### Example
-![kronostimezoner](https://github.com/sego90/kronostimezoner/blob/master/public/images/kronosdemo2_430x282.gif)
 
 #### Contributing
 
@@ -42,4 +41,4 @@ Help and contributions are welcome: Go ahead and open an issue or make a pull re
 * JD ([jdrichardstech](https://github.com/jdrichardstech))
 
 ## Acknowledgments
-- Thanks to Chance for providing both inspiration and support for Kronos Timezoner!
+ Thanks to Chance for providing both inspiration and support for Kronos Timezoner!
