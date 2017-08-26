@@ -28,7 +28,7 @@ The following time formats are accepted:
 - Ham (or pm)
 - H am (or pm)
 
-**NOTE**: input of am or pm is not case sensitive
+**NOTE**: *input of am or pm is not case sensitive*
 
 ### Contributing
 
