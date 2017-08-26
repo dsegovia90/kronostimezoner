@@ -59,7 +59,7 @@ router.post('/kronos', (req, res) => {
     slackResponse.text = `An error has been made`;
   }
   res.type('application/json').json(slackResponse).end();
-})
+});
 
 router.post('/catchmessages', (req, res) => {
   res.send(req.body.challenge);
