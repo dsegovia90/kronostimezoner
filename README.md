@@ -19,7 +19,7 @@ Install the Kronos Timezoner app to your slack team using the install button to 
 #### Example
 ![kronostimezoner](https://github.com/sego90/kronostimezoner/blob/master/public/images/kronosdemo2_430x282.gif)
 
-#### Instructions
+### Time Input Formatting
 The following time formats are accepted:
 - HH:MM
 - H:MM (will translate to AM)
@@ -30,7 +30,7 @@ The following time formats are accepted:
 
 Note: input of am or pm is not case sensitive
 
-#### Contributing
+### Contributing
 
 Notice a bug? Have an idea for an improvement? Interested in helping? Please let us know.
 
