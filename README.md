@@ -1,4 +1,4 @@
-# Kronos Timezoner
+# ![kronostimezoner](https://github.com/sego90/kronostimezoner/blob/master/public/images/timeclock-simple.png) Kronos Timezoner
 
 Scheduling and sharing times for meetings and other needs can be difficult when communicating across timezones.
 
