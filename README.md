@@ -1,4 +1,5 @@
-![kronostimezoner](https://github.com/sego90/kronostimezoner/blob/clear-unused-files/public/images/timeclock-100x100.png) 
+
+![kronostimezoner](https://github.com/sego90/kronostimezoner/blob/master/public/images/timeclock-100x100.png) 
 
 # Kronos Timezoner
 
