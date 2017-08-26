@@ -38,7 +38,7 @@ Help and contributions are welcome: Go ahead and open an issue or make a pull re
 
 ## Authors
 * Daniel ([sego90](https://github.com/sego90))
-* JD ([jdrichardstech](https://github.com/jdrichardstech))
+* JD ([jdrichardstech](http://jdrichardstech.com))
 
 ## Acknowledgments
  Thanks to Chance for providing both inspiration and support for Kronos Timezoner!
