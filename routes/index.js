@@ -6,6 +6,19 @@ const Team = require('../models/teams.js');
 router.use((req, res, next) => {
   res.locals.title = 'Kronos Timezoner';
   res.locals.installButtonLink = process.env.INSTALL_BUTTON_LINK;
+  const path = req.path;
+
+  res.locals.slashActive = '';
+  res.locals.supportActive = '';
+  res.locals.privacyActive = '';
+
+  if (path === '/') {
+    res.locals.slashActive = 'is-active';
+  } else if (path === '/support') {
+    res.locals.supportActive = 'is-active';
+  } else if (path === '/privacy') {
+    res.locals.privacyActive = 'is-active';
+  }
 
   const getCountPromise = Team.find({});
   let num = 0;
