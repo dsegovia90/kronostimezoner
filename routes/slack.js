@@ -130,8 +130,11 @@ router.post('/catchmessages', (req, res) => {
       // This promise fetches the user info (the user is the one who sent the message)
       const userInfoPromise = new Promise((resolve, reject) => {
         slack.users.info({ token, user }, (err, data) => {
-          resolve(data);
-          reject(err);
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
         });
       });
       return userInfoPromise;
@@ -155,8 +158,11 @@ router.post('/catchmessages', (req, res) => {
       }
       const postMessagePromise = new Promise((resolve, reject) => {
         slack.chat.postMessage({ token, channel, text }, (err, data) => {
-          resolve(data);
-          reject(err);
+          if (err) {
+            resolve(data);
+          } else {
+            reject(err);
+          }
         });
       });
       // Return a promise to catch any errors.
