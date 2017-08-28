@@ -37,9 +37,12 @@ router.use((req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-  const message = req.query.install === 'unsuccessful' ?
-    'App could not be installed. Please contact support.' :
-    null;
+  let message;
+  if (req.query.install) {
+    message = 'App could not be installed. Please contact support.';
+  } else if (req.query.error) {
+    message = 'Unexpected error, please try again.';
+  }
   res.render('index', { message });
 });
 
@@ -53,6 +56,11 @@ router.get('/support', (req, res) => {
 
 router.get('/thanks', (req, res) => {
   res.render('thanks');
+});
+
+router.use('/', (req, res) => {
+  res.locals.message = 'Unexpected error, please try again.';
+  res.redirect('/?error=routingError');
 });
 
 module.exports = router;
