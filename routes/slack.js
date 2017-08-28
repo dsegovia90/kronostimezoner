@@ -56,7 +56,7 @@ router.post('/kronos', (req, res) => {
 
     _Enjoy Kronos Timezoner!_`;
   } else {
-    slackResponse.text = `An error has been made`;
+    slackResponse.text = 'An error has been made';
   }
   res.type('application/json').json(slackResponse).end();
 });
