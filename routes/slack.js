@@ -82,8 +82,13 @@ router.post('/catchmessages', (req, res) => {
     // find format of time input
     if (receivedText.match(hourRegex)[0] && !(receivedText.match(timeRegex))){
       const getHour = receivedText.match(hourRegex)[0];
-      capturedTime = getHour.length === 4 ? [(getHour.slice(0,2).toString()),'00'] : [(getHour.slice(0,1).toString()),'00'];
-      capturedAmPm = getHour.length === 4 ? getHour.slice(2) : getHour.slice(1);
+      if(getHour.includes('am') || getHour.includes('pm')){
+        capturedTime = getHour.length === 4 ? [(getHour.slice(0,2).toString()),'00'] : [(getHour.slice(0,1).toString()),'00'];
+        capturedAmPm = getHour.length === 4 ? getHour.slice(2) : getHour.slice(1);
+      } else{
+        return
+      }
+     
     } else if (receivedText.match(timeRegex)[0]){
       // capture the time the user sent via slack, and split it by the ':'
       capturedTime = receivedText.match(timeRegex)[0].split(':');
