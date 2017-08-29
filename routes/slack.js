@@ -91,6 +91,7 @@ router.post('/catchmessages', (req, res) => {
       } else {
         return
       }
+      
     } else if (receivedText.match(timeRegex)[0]){
       // capture the time the user sent via slack, and split it by the ':'
       capturedTime = receivedText.match(timeRegex)[0].split(':');
