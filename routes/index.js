@@ -61,7 +61,6 @@ router.get('/thanks', (req, res) => {
 router.use('/', (req, res) => {
   let path = req.path;
   path = path.substring(1);
-  console.log(path);
   if (path.indexOf('/') >= 0) {
     path = path.substring(path.indexOf('/'));
   }
