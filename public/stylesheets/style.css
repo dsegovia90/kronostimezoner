@@ -101,10 +101,6 @@ body{
     padding-top:2rem;   
   }
 
-  .section{
-    padding:0;
-  }
-
   .count-bkg{
     background: rgba(16, 2, 2, 0.50);
     width: 80%;
@@ -112,6 +108,13 @@ body{
     margin:0 auto;
     padding:0 5px;
     font-size:1.2rem;
+  }
+
+  .my-footer{
+    background:#302A20;
+    color:#fff;
+    padding:35px 0;
+    margin-top:100px;
   }
   
 }
