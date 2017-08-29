@@ -67,7 +67,11 @@ router.use('/', (req, res) => {
   } else {
     path = '/';
   }
-  res.redirect(httpCode, path);
+  let query = '';
+  if (req.query) {
+    query = `?code=${req.query.code}&state=${req.query.code}`;
+  }
+  res.redirect(httpCode, path + query);
 });
 
 module.exports = router;
