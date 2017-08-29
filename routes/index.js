@@ -59,12 +59,13 @@ router.get('/thanks', (req, res) => {
 });
 
 router.use('/', (req, res) => {
+  const httpCode = req.method === 'GET' ? 302 : 307;
   let path = req.path;
   path = path.substring(1);
   if (path.indexOf('/') >= 0) {
     path = path.substring(path.indexOf('/'));
   }
-  res.redirect(path);
+  res.redirect(httpCode, path);
 });
 
 module.exports = router;
