@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const Team = require('../models/teams.js');
+const url = require('url');
 
 router.use((req, res, next) => {
   res.locals.title = 'Kronos Timezoner';
@@ -67,11 +68,14 @@ router.use('/', (req, res) => {
   } else {
     path = '/';
   }
-  let query = '';
-  if (req.query) {
-    query = `?code=${req.query.code}&state=${req.query.code}`;
+  if (Object.keys(req.query).length !== 0) {
+    res.redirect(httpCode, url.format({
+      pathname: path,
+      query: req.query,
+    }));
+  } else {
+    res.redirect(httpCode, path);
   }
-  res.redirect(httpCode, path + query);
 });
 
 module.exports = router;
