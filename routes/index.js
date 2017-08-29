@@ -64,6 +64,8 @@ router.use('/', (req, res) => {
   path = path.substring(1);
   if (path.indexOf('/') >= 0) {
     path = path.substring(path.indexOf('/'));
+  } else {
+    path = '/';
   }
   res.redirect(httpCode, path);
 });
