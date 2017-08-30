@@ -71,9 +71,10 @@ router.post('/catchmessages', (req, res) => {
   // const hourRegex = /\d{1,2}[^:][pm,am]|\d{1,2}[^:] [pm,am]/i;
 
   if ((timeRegex.test(receivedText) || hourRegex.test(receivedText)) && !req.body.event.subtype) {
-    console.log(receivedText.match(hourRegex))
     // split receivedText so that you can find the am pm after the space as an index
     const receivedTextArr = receivedText.toLowerCase().split(' ');
+    console.log('RECEIVEDTEXTARRAY')
+    console.log(receivedTextArr)
     console.log('received a time!');
     // Everything needed for the slack api interaction except text:
     const channel = req.body.event.channel;
@@ -88,6 +89,13 @@ router.post('/catchmessages', (req, res) => {
     capturedMinutes
     // find format of time input
     if (receivedText.match(hourRegex)[0] && !(receivedText.match(timeRegex))){
+
+      //handle long string that includes a time input
+      if (!receivedTextArr.includes(receivedText.match(hourRegex)[0])){
+        console.log("STOPPED HOURREGEX");
+        return
+      }
+
       const getHour = receivedText.match(hourRegex)[0];
       if (getHour.includes('am') || getHour.includes('pm')){
         capturedTime = getHour.length === 4 ? [(getHour.slice(0,2).toString()),'00'] : [(getHour.slice(0,1).toString()),'00'];  
@@ -104,6 +112,12 @@ router.post('/catchmessages', (req, res) => {
       capturedTime = receivedText.match(timeRegex)[0].split(':');
       // check for ap pm after capturedTime followed by a space
       checkTime = capturedTime.join(':');
+      
+
+      if (!receivedTextArr.includes(receivedText.match(timeRegex)[0])){
+        console.log("STOPPED TIMEREGEX");
+        return
+      }
       // capture next index after captured time
       wordAfterTime = receivedTextArr[receivedTextArr.indexOf(checkTime)+1]
       if (capturedTime[1].includes('a')){
