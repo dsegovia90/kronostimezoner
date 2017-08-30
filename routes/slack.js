@@ -67,54 +67,70 @@ router.post('/catchmessages', (req, res) => {
   // split receivedText so that you can find the am pm after the space as an index
   const timeRegex = /\d{1,2}:\d{2}(pm|am)?/i;
   const hourRegex = /\d{1,2}(pm|am)?/i;
+  // const timeRegex = /\d{1,2}:\d{2}[pm,am]|\d{1,2}:\d{2} [pm,am] |\d{1,2}:\d{2}/i;
+  // const hourRegex = /\d{1,2}[^:][pm,am]|\d{1,2}[^:] [pm,am]/i;
 
   if ((timeRegex.test(receivedText) || hourRegex.test(receivedText)) && !req.body.event.subtype) {
     // split receivedText so that you can find the am pm after the space as an index
     const receivedTextArr = receivedText.toLowerCase().split(' ');
+    console.log('RECEIVEDTEXTARRAY')
+    console.log(receivedTextArr)
     console.log('received a time!');
     // Everything needed for the slack api interaction except text:
     const channel = req.body.event.channel;
     const user = req.body.event.user;
     const teamId = req.body.team_id;
     let capturedTime;
-    let capturedAmPm = '';
+    let capturedAmPm = '',
+    checkTime,
+    wordAfterTime,
+    parseAmPm,
+    capturedHour,
+    capturedMinutes
     // find format of time input
     if (receivedText.match(hourRegex)[0] && !(receivedText.match(timeRegex))){
-      const getHour = receivedText.match(hourRegex)[0];
 
+      //handle long string that includes a time input
+      if (!receivedTextArr.includes(receivedText.match(hourRegex)[0])){
+        console.log("STOPPED HOURREGEX");
+        return
+      }
+
+      const getHour = receivedText.match(hourRegex)[0];
       if (getHour.includes('am') || getHour.includes('pm')){
-        capturedTime = getHour.length === 4 ? [(getHour.slice(0,2).toString()),'00'] : [(getHour.slice(0,1).toString()),'00'];
+        capturedTime = getHour.length === 4 ? [(getHour.slice(0,2).toString()),'00'] : [(getHour.slice(0,1).toString()),'00'];  
         capturedAmPm = getHour.length === 4 ? getHour.slice(2) : getHour.slice(1);
-      } else if (receivedTextArr[receivedTextArr.indexOf(getHour)+1] === 'am' || receivedTextArr[receivedTextArr.indexOf(getHour)+1] === 'pm'){
-        capturedAmPm = receivedTextArr[receivedTextArr.indexOf(getHour)+1];
-        capturedTime = [getHour.toString(), '00'];
+      } else if (receivedTextArr[receivedTextArr.indexOf(getHour)+1].substring(0,2)==='am' || receivedTextArr[receivedTextArr.indexOf(getHour)+1].substring(0,2)==='pm'){
+        capturedAmPm = receivedTextArr[receivedTextArr.indexOf(getHour)+1].substring(0,2);
+        capturedTime = [getHour, '00'];
       } else {
         return
       }
-      
     } else if (receivedText.match(timeRegex)[0]){
+       // SEPARATE HOUR AND MINUTES FOR LATER USE
       // capture the time the user sent via slack, and split it by the ':'
       capturedTime = receivedText.match(timeRegex)[0].split(':');
+      // check for ap pm after capturedTime followed by a space
+      checkTime = capturedTime.join(':');
+      
+
+      if (!receivedTextArr.includes(receivedText.match(timeRegex)[0])){
+        console.log("STOPPED TIMEREGEX");
+        return
+      }
+      // capture next index after captured time
+      wordAfterTime = receivedTextArr[receivedTextArr.indexOf(checkTime)+1]
+      if (capturedTime[1].includes('a')){
+        capturedAmPm = 'am'
+      } else if(capturedTime[1].includes('p')) {
+        capturedAmPm = 'pm'
+      } else if (!wordAfterTime || !(wordAfterTime.substring(0,2)==='pm') || wordAfterTime.substring(0,2)===('am')){
+        capturedAmPm = 'am'
+      }else if (wordAfterTime.substring(0,2)==='pm'){
+        capturedAmPm = 'pm'
+      } 
     }
-    // SEPARATE HOUR AND MINUTES FOR LATER USE
-    // check for ap pm after capturedTime followed by a space
-    const checkTime = capturedTime.join(':');
-    // capture next index after time
-    const wordAfterTime = capturedAmPm.length == 0 ? receivedTextArr[receivedTextArr.indexOf(checkTime) + 2] :
-      receivedTextArr[receivedTextArr.indexOf(checkTime) + 1];
-    // capture first two indexes of wordAfterTime
-    const parseAmPm = wordAfterTime ? wordAfterTime.substring(0, 2) : '';
-    // conditionally set am or pm of input time
-    if (capturedAmPm.length != 0){
-      capturedAmPm
-    } else if (parseAmPm === 'pm') {
-      capturedAmPm = 'pm';
-    } else if (capturedTime[1].substring(2).length === 0) {
-      capturedAmPm = 'am';
-    } else {
-      capturedAmPm = capturedTime[1].substring(2);
-    }
-    // handle 12:00/12:00am/12:00pm user input
+    //adjust hour for 24 hour time instead of American 12
     if (capturedAmPm === 'am') {
       if ((capturedTime[1].substring(2).length === 2 && capturedTime[0] === '12') || (capturedTime[1].substring(2).length === 0 && capturedTime[0] === '12')) {
         capturedTime[0] = '24';
@@ -124,9 +140,12 @@ router.post('/catchmessages', (req, res) => {
         capturedTime[0] = '0';
       }
     }
+    //capture Hours and minutes from capturedTime array 
+    capturedHour = capturedAmPm === 'am' ? parseInt(capturedTime[0], 10) : parseInt(capturedTime[0], 10) + 12;
+    capturedMinutes = capturedTime[1] ? parseInt(capturedTime[1].substring(0, 2), 10) : 0;
+  
     // Assign hour according to whether it is am or pm
-    const capturedHour = capturedAmPm === 'am' ? parseInt(capturedTime[0], 10) : parseInt(capturedTime[0], 10) + 12;
-    const capturedMinutes = capturedTime[1] ? parseInt(capturedTime[1].substring(0, 2), 10) : 0;
+    
     // get the current date in UTC to know the year, month and day in UTC
     const utcDate = new Date();
 
