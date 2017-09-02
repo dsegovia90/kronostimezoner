@@ -43,7 +43,7 @@ router.get('/install', (req, res) => {
 
 router.post('/kronos', (req, res) => {
   const slackResponse = {};
-  slackResponse.response_type = 'in_channel';
+  slackResponse.response_type = 'ephemeral';
   if (req.body.user_name) {
     slackResponse.text = `Hello <@${req.body.user_name}>. Need Help?
     _To have the time translated, simply type your message including a time in one of the following formats:_
