@@ -42,7 +42,6 @@ router.get('/install', (req, res) => {
 });
 
 router.post('/kronos', (req, res) => {
-  console.log(req.body)
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     const slackResponse = {};
     slackResponse.response_type = 'ephemeral';
