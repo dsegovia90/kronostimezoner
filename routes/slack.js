@@ -42,26 +42,30 @@ router.get('/install', (req, res) => {
 });
 
 router.post('/kronos', (req, res) => {
-  const slackResponse = {};
-  slackResponse.response_type = 'ephemeral';
-  if (req.body.user_name) {
-    slackResponse.text = `Hello <@${req.body.user_name}>. Need Help?
-    _To have the time translated, simply type your message including a time in one of the following formats:_
-        *HH:MM* _10:30_
-        *H:MM*  _1:30_ (will translate to AM)
-        *H:MMam*  _3:30am_ (or pm)
-        *Ham* _3am_ (or pm)
-        *H am* _3 am_ (or pm)
-        
-        *Note*:
-         1. _am and pm are NOT case-sensitive_
-         2. Do not use punctuation after time input
-
-    _Enjoy Kronos Timezoner!_`;
+  if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+    const slackResponse = {};
+    slackResponse.response_type = 'ephemeral';
+    if (req.body.user_name) {
+      slackResponse.text = `Hello <@${req.body.user_name}>. Need Help?
+      _To have the time translated, simply type your message including a time in one of the following formats:_
+          *HH:MM* _10:30_
+          *H:MM*  _1:30_ (will translate to AM)
+          *H:MMam*  _3:30am_ (or pm)
+          *Ham* _3am_ (or pm)
+          *H am* _3 am_ (or pm)
+          
+          *Note*:
+           1. _am and pm are NOT case-sensitive_
+           2. Do not use punctuation after time input
+  
+      _Enjoy Kronos Timezoner!_`;
+    } else {
+      slackResponse.text = 'An error has been made';
+    }
+    res.json(slackResponse);
   } else {
-    slackResponse.text = 'An error has been made';
+    res.end('Wrong token.');
   }
-  res.json(slackResponse);
 });
 
 router.post('/catchmessages', (req, res) => {
@@ -104,7 +108,7 @@ router.post('/catchmessages', (req, res) => {
         return;
       }
     } else if (receivedText.match(timeRegex)[0]) {
-       // SEPARATE HOUR AND MINUTES FOR LATER USE
+      // SEPARATE HOUR AND MINUTES FOR LATER USE
       // capture the time the user sent via slack, and split it by the ':'
       capturedTime = receivedText.match(timeRegex)[0].split(':');
       // check for ap pm after capturedTime followed by a space
