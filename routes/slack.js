@@ -118,7 +118,7 @@ router.post('/catchmessages', (req, res) => {
       wordAfterTime = receivedTextArr[receivedTextArr.indexOf(checkTime) + 1];
       if (capturedTime[1].includes('a')) {
         capturedAmPm = 'am';
-      } else if(capturedTime[1].includes('p')) {
+      } else if (capturedTime[1].includes('p')) {
         capturedAmPm = 'pm';
       } else if (!wordAfterTime || !(wordAfterTime.substring(0, 2) === 'pm') || wordAfterTime.substring(0, 2) === ('am')) {
         capturedAmPm = 'am';
@@ -126,7 +126,7 @@ router.post('/catchmessages', (req, res) => {
         capturedAmPm = 'pm';
       }
     }
-    //adjust hour for 24 hour time instead of American 12
+    // adjust hour for 24 hour time instead of American 12
     if (capturedAmPm === 'am') {
       if ((capturedTime[1].substring(2).length === 2 && capturedTime[0] === '12') || (capturedTime[1].substring(2).length === 0 && capturedTime[0] === '12')) {
         capturedTime[0] = '24';
