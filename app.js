@@ -10,6 +10,11 @@ require('dotenv').config();
 
 const app = express();
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+app.set('socket', io); // <-- bind socket to app
+
 mongoose.Promise = global.Promise;
 const databaseUri = process.env.MONGO_URI;
 // mongoose.connect(databaseUri, { useMongoClient: true })
@@ -38,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/slack', slack);
 app.use('/', index); // Keep this last to catch all undefined routes
 
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
@@ -58,4 +64,5 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.render('error');
 });
 
+exports.server = server;
 exports.app = app;
