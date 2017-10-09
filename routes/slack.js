@@ -204,6 +204,14 @@ router.post('/catchmessages', (req, res) => {
           }
         });
       });
+
+      Team.find({})
+        .then((teams) => {
+          console.log(teams.length)
+          const newCount = teams.reduce((accumulator, currentValue) => accumulator + currentValue.count, 0);
+          const socket = req.app.get('socket');
+          socket.emit('newCount', { newCount });
+        });
       // Return a promise to catch any errors.
       return postMessagePromise;
     })
