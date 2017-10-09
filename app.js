@@ -16,13 +16,13 @@ const databaseUri = process.env.MONGO_URI;
 mongoose.connect(
   databaseUri,
   { useMongoClient: true },
-    (err, res) => { // eslint-disable-line no-unused-vars
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('Database Connection Successfull.');
-      }
-    });
+  (err, res) => { // eslint-disable-line no-unused-vars
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Database Connection Successfull.');
+    }
+  });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,4 +58,4 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.render('error');
 });
 
-module.exports = app;
+exports.app = app;
