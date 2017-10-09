@@ -59,23 +59,23 @@ router.get('/thanks', (req, res) => {
   res.render('thanks');
 });
 
-router.use('/', (req, res) => {
-  const httpCode = req.method === 'GET' ? 302 : 307;
-  let path = req.path;
-  path = path.substring(1);
-  if (path.indexOf('/') >= 0) {
-    path = path.substring(path.indexOf('/'));
-  } else {
-    path = '/';
-  }
-  if (Object.keys(req.query).length !== 0) {
-    res.redirect(httpCode, url.format({
-      pathname: path,
-      query: req.query,
-    }));
-  } else {
-    res.redirect(httpCode, path);
-  }
-});
+// router.use('/', (req, res) => {
+//   const httpCode = req.method === 'GET' ? 302 : 307;
+//   let path = req.path;
+//   path = path.substring(1);
+//   if (path.indexOf('/') >= 0) {
+//     path = path.substring(path.indexOf('/'));
+//   } else {
+//     path = '/';
+//   }
+//   if (Object.keys(req.query).length !== 0) {
+//     res.redirect(httpCode, url.format({
+//       pathname: path,
+//       query: req.query,
+//     }));
+//   } else {
+//     res.redirect(httpCode, path);
+//   }
+// });
 
 module.exports = router;
