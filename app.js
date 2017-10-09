@@ -13,7 +13,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-app.set('socketio', io); // <-- bind socket to app
+app.set('socket', io); // <-- bind socket to app
 
 mongoose.Promise = global.Promise;
 const databaseUri = process.env.MONGO_URI;
