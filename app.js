@@ -10,7 +10,10 @@ require('dotenv').config();
 
 const app = express();
 
-const io = require('socket.io')(app);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+app.set('socketio', io); // <-- bind socket to app
 
 mongoose.Promise = global.Promise;
 const databaseUri = process.env.MONGO_URI;
@@ -39,9 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/slack', slack);
 app.use('/', index); // Keep this last to catch all undefined routes
-io.on('connect', (socket) => {
-  socket.emit('hello', { hello: 'world' });
-});
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -63,4 +64,5 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.render('error');
 });
 
+exports.server = server;
 exports.app = app;
