@@ -22,12 +22,8 @@ router.use((req, res, next) => {
   }
 
   const getCountPromise = Team.find({});
-  let num = 0;
-
   getCountPromise.then((teams) => {
-    teams.forEach((team) => {
-      num += team.count;
-    });
+    const num = teams.reduce((accumulator, currentValue) => accumulator + currentValue.count, 0);
     res.locals.num = num;
     next();
   }).catch((err) => {
