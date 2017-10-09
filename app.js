@@ -10,6 +10,8 @@ require('dotenv').config();
 
 const app = express();
 
+const io = require('socket.io')(app);
+
 mongoose.Promise = global.Promise;
 const databaseUri = process.env.MONGO_URI;
 // mongoose.connect(databaseUri, { useMongoClient: true })
@@ -37,6 +39,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/slack', slack);
 app.use('/', index); // Keep this last to catch all undefined routes
+io.on('connect', (socket) => {
+  socket.emit('hello', { hello: 'world' });
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
