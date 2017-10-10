@@ -22,7 +22,8 @@
     "pug": "~2.0.0-beta11",
     "request": "^2.81.0",
     "serve-favicon": "~2.4.2",
-    "slack": "^8.3.1"
+    "slack": "^8.3.1",
+    "socket.io": "^2.0.3"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
