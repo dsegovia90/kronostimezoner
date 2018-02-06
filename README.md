@@ -15,7 +15,7 @@ And (of course!) feel free to join in the fun!
 
 ### Using the app and website
 
-Getting started with the website is as simple as navigating to the app (http://www.kronostimzoner.com)/
+Getting started with the website is as simple as navigating to the app (https://kronostimezoner.herokuapp.com/)/
 
 Install the Kronos Timezoner app to your slack team using the install button to access its features. After installation, the app will automatically translate your first time input into the timezone for each team member in the group or to each member to whom you send a direct message.
 
