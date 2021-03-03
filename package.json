@@ -19,7 +19,7 @@
     "mongoose": "^4.11.6",
     "morgan": ">=1.9.1",
     "nodemon": "^1.11.0",
-    "pug": "~2.0.0-beta11",
+    "pug": "~3.0.1",
     "request": "^2.81.0",
     "serve-favicon": "~2.4.2",
     "slack": "^11.0.2",
